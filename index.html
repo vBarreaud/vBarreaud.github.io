@@ -54,7 +54,7 @@ See <a href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API
               return response.text();
           }).then(function(text){
 
-            console.log(text);
+            //console.log(text);
             var jCalData = ICAL.parse(text);
             var vcalendar = new ICAL.Component(jcalData);
             var vevent = vcalendar.getFirstSubcomponent('vevent');
