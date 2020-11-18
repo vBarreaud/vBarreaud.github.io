@@ -1,8 +1,11 @@
 var staticCacheName = "pwa"; 
   
+var cors_api_url = 'https://cors-anywhere.herokuapp.com/';
+var url = 'https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/9EYlGR3a.shu'
+
 var filesToCache = [
 	'/',
-	'https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/9EYlGR3a.shu'
+	'https://cors-anywhere.herokuapp.com/https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/9EYlGR3a.shu'
 ]
 
 
@@ -19,7 +22,7 @@ self.addEventListener("fetch", function (event) {
   
   event.respondWith( 
     caches.match(event.request).then(function (response) { 
-      return response || fetch(event.request,{mode: 'no-cors'}); 
+      return response || fetch(event.request); 
     }) 
   ); 
 }); 
