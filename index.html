@@ -57,6 +57,7 @@ See <a href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API
             //console.log(text);
             var jCalData = ICAL.parse(text);
             var vcalendar = new ICAL.Component(jCalData);
+            if(Array.isArray(vcalendar)) console.log("         It's an array! ");
             var componentArray = vcalendar.getAllSubcomponents();
             componentArray.foreach((item,index,array)=>{console.log(">>>" + index);});
             //var vevent = vcalendar.getFirstSubcomponent('vevent');
