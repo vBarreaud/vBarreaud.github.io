@@ -18,6 +18,7 @@
 
 <!-- Manifest File link -->
 <link rel="manifest" href="manifest.json"> 
+<script src="ical.min.js"></script>
 </head> 
 
 <body> 
@@ -52,7 +53,13 @@ See <a href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API
           ).then(function(response){
               return response.text();
           }).then(function(text){
+
             console.log(text);
+            var jCalData = ICAL.parse(text);
+            var vcalendar = new ICAL.Component(jcalData);
+            var vevent = vcalendar.getFirstSubcomponent('vevent');
+            var summary = vevent.getFirstPropertyValue('summary');
+            console.log('Summary: ' + summary);
           });
     	}); 
   
