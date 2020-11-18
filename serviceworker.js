@@ -19,8 +19,7 @@ self.addEventListener("fetch", function (event) {
   
   event.respondWith( 
     caches.match(event.request).then(function (response) { 
-    	event.request.mode = "no-cors";
-      return response || fetch(event.request); 
+      return response || fetch(event.request,{mode: 'no-cors'}); 
     }) 
   ); 
 }); 
