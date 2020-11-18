@@ -44,10 +44,12 @@ See <a href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API
 
           fetch('https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/9EYlGR3a.shu', 
                 {
-                    mode: 'cors' //no-cors
+                    mode: 'no-cors' //no-cors
                 }
           ).then(function(response){
-              console.log("done fetch " + response)
+              return response.text();
+          }).then(function(text){
+            console.log(text);
           });
     	}); 
   
