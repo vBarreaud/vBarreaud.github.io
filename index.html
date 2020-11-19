@@ -57,7 +57,7 @@ See <a href="https://developer.mozilla.org/en-US/docs/Web/API/Service_Worker_API
             //console.log(text);
             var jCalData = ICAL.parse(text);
 
-            let events = jCalData[1];
+            let events = jCalData[1][2];
             events.forEach(e => result.push(flattenEvent(e)));
             console.log(events);
             /*
