@@ -14,28 +14,20 @@
 
 <body> 
 
-<H1></H1>
+<H1>The "A" in AJAX stands for "Asynchronous"</H1>
 
+<em>
+I've build a web service on Heroku : <a href="https://stwom.herokuapp.com/">https://stwom.herokuapp.com/</a>.
+<br>
+Try and send a GET request to https://stwom.herokuapp.com/<b>int</b> with <b>int</b> an integer : you will receive a JSON object <code>{x:...,y:...}</code> with x and y between 0 and <b>int</b>. This object can be considered as coordinates.
+<br>
+Your job is to use the XHR object to ask for coordinates every seconds and then display a circle in a canvas at those coordinates.   
+</em>
 
-<img id="get_img"/>
-
-<script>// creation de l’objet
-
-var image = document.getElementById("get_img");
-
-var ajax = new XMLHttpRequest();
-// méthode HTTP utilisée et fichier à charger
-ajax.open('GET', 'https://media1.tenor.com/images/e4a680d8978d66ea28a32d0afa292484/tenor.gif?itemid=13674640');
-// on écoute l’évènement load de la requête
-ajax.addEventListener('load',  function () {
-    // quand c’est fini, on affiche le résultat
-    //console.log(ajax.response)
-    image.src = "data:image/gif;base64," + encode64(ajax.responseText);
-
-});
-// envoi la requête
-ajax.send();
-</script>
+<H1>Des promesses, toujours des promesses...</H1>
+<em>
+	Do the exact same thing as above but use the <a href="https://developer.mozilla.org/fr/docs/Web/API/Fetch_API">FETCH API</a> instead.
+</em>
 
 
 </body>
