@@ -1,0 +1,42 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+
+<!-- Responsive -->
+<meta charset="utf-8"> 
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+<meta http-equiv="X-UA-Compatible" content="ie=edge"> 
+
+<meta rel="stylesheet" media="screen and (max-width: 1280px)" href="../petiteResolution.css"/>
+<!-- Title -->
+<title>JS_TP_3_AJAX</title> 
+</head> 
+
+<body> 
+
+<H1></H1>
+
+
+<img id="get_img"/>
+
+<script>// creation de l’objet
+
+var image = document.getElementById("get_img");
+
+var ajax = new XMLHttpRequest();
+// méthode HTTP utilisée et fichier à charger
+ajax.open('GET', 'https://media1.tenor.com/images/e4a680d8978d66ea28a32d0afa292484/tenor.gif?itemid=13674640');
+// on écoute l’évènement load de la requête
+ajax.addEventListener('load',  function () {
+    // quand c’est fini, on affiche le résultat
+    //console.log(ajax.response)
+    image.src = "data:image/gif;base64," + encode64(ajax.responseText);
+
+});
+// envoi la requête
+ajax.send();
+</script>
+
+
+</body>
+</html>
