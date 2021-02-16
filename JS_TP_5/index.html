@@ -6,7 +6,7 @@
 </head>
 <body>
 <emph>English version below</emph>
-
+<br>
 Selon wikipedia,
 <cite>
 <p>	
@@ -25,7 +25,7 @@ Dans ce TP, j'aimerais vous emmener <b>vers</b> la création d'un PWA. Pour cela
 
 	<li>Etape 2: Suivez le tutoriel MDN sur l'API Client IndexedDb (<a href="https://developer.mozilla.org/fr/docs/Apprendre/JavaScript/Client-side_web_APIs/Client-side_storage#stocker_des_donn%C3%A9es_complexes_%E2%80%94_indexeddb">lien</a>).</li>
 
-	<li>Etape 3: Utiliser le fichier ICS <a href="./INFO2_G1_TP1.ics">joint</a> et afficher les événements de la journée à l'aide de la librairie <a href="https://github.com/mozilla-comm/ical.js">ical.js</a>. Je vous recommande de regarder en particulier le <a href="http://jsfiddle.net/kewisch/227efboL/">jsfiddle associé</a>.</li>
+	<li>Etape 3: Utilisez le fichier ICS <a href="./INFO2_G1_TP1.ics">joint</a> et afficher les événements de la journée à l'aide de la librairie <a href="https://github.com/mozilla-comm/ical.js">ical.js</a>. Je vous recommande de regarder en particulier le <a href="http://jsfiddle.net/kewisch/227efboL/">jsfiddle associé</a>.</li>
 
 	<li>Etape 4 : Lors de la lecture du fichier ICS (Etape 3), stocker les événements dans un IndexedDB.</li>
 
@@ -33,8 +33,41 @@ Dans ce TP, j'aimerais vous emmener <b>vers</b> la création d'un PWA. Pour cela
 
 	<li>Etape 6 : adaptez le code de l'Etape 5 pour demander au Service Worker de récupérer l'emploi du temps en ligne, si connecté ou dans l'IndexedDB sinon. </li>
 
-	<li>Etape 7 : Suivez le tutoriel MDN sur l'installation des PWA (<a href="https://developer.mozilla.org/fr/docs/Web/Progressive_web_apps/Installable_PWAs">lien</a>). Adaptez l'application de l'étape 6 pour en faire une PWA.
-	</ul>
+	<li>Etape 7 : Suivez le tutoriel MDN sur l'installation des PWA (<a href="https://developer.mozilla.org/fr/docs/Web/Progressive_web_apps/Installable_PWAs">lien</a>). Adaptez l'application de l'étape 6 pour en faire une PWA.</li>
+</ul>
+
+<hr>
+
+According to wikipedia, 
+<cite>
+	<p>A progressive web application (PWA) is a type of application software delivered through the web, built using common web technologies including HTML, CSS and JavaScript. It is intended to work on any platform that uses a standards-compliant browser, including both desktop and mobile devices.
+</p>
+<p>
+PWA features narrow the gap between user experience in web-based and native applications.
+</p>
+<p>
+Since a progressive web app is a type of webpage or website known as a web application, they do not require separate bundling or distribution. In particular, there is no requirement for developers or users to install the web apps via digital distribution systems like Apple App Store or Google Play. However, for many PWA providers the lack of visibility of the PWA in those distribution systems is a disadvantage compared to native apps. To varying degrees, the major app stores started to embrace PWAs, allowing them to be found in app stores.
+</p>
+</cite>
+<p>
+	In this lab, we will try to create a PWA that will fetch a iCal flow at startup and display the events of the day. If no connection is to be found at startup, it will retrieve events stored in an indexedDb (local storage).
+</p>
+<ul>
+	<li>Step 1 : Follow and reproduce MDN tutorial on <a href="https://developer.mozilla.org/fr/docs/Apprendre/JavaScript/Client-side_web_APIs/Client-side_storage#stocker_des_donn%C3%A9es_simples_%E2%80%94_web_storage">Web Storage</a>. You will go further and produce a web page where you can input an url (say https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/4PnR2on8.shu) and store this url for latter use (with web storage, of course).</li>
+
+	<li>Step 2: Follow MDN tutorial on  (<a href="https://developer.mozilla.org/fr/docs/Apprendre/JavaScript/Client-side_web_APIs/Client-side_storage#stocker_des_donn%C3%A9es_complexes_%E2%80%94_indexeddb">IndexedDb</a>).</li>
+
+	<li>Step 3: Use  <a href="./INFO2_G1_TP1.ics">this</a> ics file to display the events of the day with the <a href="https://github.com/mozilla-comm/ical.js">ical.js</a> library. I recommand to see the  <a href="http://jsfiddle.net/kewisch/227efboL/">jsfiddle</a>.</li>
+
+	<li>Step 4: When reading and parsing the ics file at step 3, store events in an IndexedDB (Step 2).</li>
+
+	<li>Step 5: Follow and reproduce MDN tutorial on <a href="https://developer.mozilla.org/fr/docs/Web/API/Service_Worker_API/Using_Service_Workers">Service Workers</a>. Pay extra attention to the way the  <a href="https://developer.mozilla.org/fr/docs/Web/API/Service_Worker_API/Using_Service_Workers#installer_et_activer_remplir_le_cache">cache API</a> is used. Cache API is similar to  LocalStorage but is not implemented in every browser. Wath out, you may have security issues (https is often required) : use your personal page on github for it uses https.</li>
+
+	<li>Step 6 : Adapt the code of Step 5 : Ask the Service Worker to retrieve the ics calendar online (if connected) of from the IndexedDB object otherwise. </li>
+
+	<li>Step 7 : Follow  MDN tutorial on  (<a href="https://developer.mozilla.org/fr/docs/Web/Progressive_web_apps/Installable_PWAs">Installable PWAs</a>). Adapt code of Step 6 to create a full PWA.</li>
+</ul>
+
 
 </body>
 </html>
