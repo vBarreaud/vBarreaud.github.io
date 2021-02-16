@@ -1,0 +1,40 @@
+<!doctype html>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Local Storage API, Progressive Web App</title>
+</head>
+<body>
+<emph>English version below</emph>
+
+Selon wikipedia,
+<cite>
+<p>	
+Une progressive web app (PWA, applications web progressive en français1) est une application web qui consiste en des pages ou des sites web, et qui peuvent apparaître à l'utilisateur de la même manière que les applications natives ou les applications mobiles. Ce type d'applications tente de combiner les fonctionnalités offertes par la plupart des navigateurs modernes avec les avantages de l'expérience offerte par les appareils mobiles.
+</p><p>
+Une PWA se consulte comme un site web classique, depuis une URL sécurisée mais permet une expérience utilisateur similaire à celle d'une application mobile, sans les contraintes de cette dernière (soumission aux App-Stores, utilisation importante de la mémoire de l'appareil…).
+</p><p>
+Elles proposent de conjuguer rapidité, fluidité et légèreté tout en permettant de limiter considérablement les coûts de développement4 : plus besoin de faire des développements spécifiques pour les applications en fonction de chacune des plateformes : iOS, Android…
+</p>
+</cite>
+<p>
+Dans ce TP, j'aimerais vous emmener <b>vers</b> la création d'un PWA. Pour cela, vous passerez par plusieurs étapes. Vous n'irez peut être pas au bout : ce n'est pas grave. La PWA visée est un client qui permet de lire son emploi du temps même quand il n'y a pas de réseau.
+</p>
+<ul>
+	<li>Etape 1 : Suivez et reproduisez le tutoriel MDN sur l'API Client Web Storage (<a href="https://developer.mozilla.org/fr/docs/Apprendre/JavaScript/Client-side_web_APIs/Client-side_storage#stocker_des_donn%C3%A9es_simples_%E2%80%94_web_storage">lien</a>). Vous généraliserez ce tutoriel créant une page sur laquelle il est possible de rentrer l'url de votre emploi du temps (pour INFO2 G1 TP1 https://planning.univ-rennes1.fr/jsp/custom/modules/plannings/4PnR2on8.shu) et de la conserver pour un usage ultérieur. </li>
+
+	<li>Etape 2: Suivez le tutoriel MDN sur l'API Client IndexedDb (<a href="https://developer.mozilla.org/fr/docs/Apprendre/JavaScript/Client-side_web_APIs/Client-side_storage#stocker_des_donn%C3%A9es_complexes_%E2%80%94_indexeddb">lien</a>).</li>
+
+	<li>Etape 3: Utiliser le fichier ICS <a href="./INFO2_G1_TP1.ics">joint</a> et afficher les événements de la journée à l'aide de la librairie <a href="https://github.com/mozilla-comm/ical.js">ical.js</a>. Je vous recommande de regarder en particulier le <a href="http://jsfiddle.net/kewisch/227efboL/">jsfiddle associé</a>.</li>
+
+	<li>Etape 4 : Lors de la lecture du fichier ICS (Etape 3), stocker les événements dans un IndexedDB.</li>
+
+	<li>Etape 5: Suivez le tutoriel MDN sur les <a href="https://developer.mozilla.org/fr/docs/Web/API/Service_Worker_API/Using_Service_Workers">Service Workers</a>. Regardez en particulier comment est utilisé le <a href="https://developer.mozilla.org/fr/docs/Web/API/Service_Worker_API/Using_Service_Workers#installer_et_activer_remplir_le_cache">cache</a>. Le cache est similaire à du LocalStorage mais n'est pas forcément implémenté sur tout les navigateurs. Attention, vous pouvez avoir des soucis de sécurité, les navigateurs demandant à ce que les Service Workers soient accessibles via https. Passez par un hébergement sur votre page perso github.io pour simplifier le processus.</li>
+
+	<li>Etape 6 : adaptez le code de l'Etape 5 pour demander au Service Worker de récupérer l'emploi du temps en ligne, si connecté ou dans l'IndexedDB sinon. </li>
+
+	<li>Etape 7 : Suivez le tutoriel MDN sur l'installation des PWA (<a href="https://developer.mozilla.org/fr/docs/Web/Progressive_web_apps/Installable_PWAs">lien</a>). Adaptez l'application de l'étape 6 pour en faire une PWA.
+	</ul>
+
+</body>
+</html>
