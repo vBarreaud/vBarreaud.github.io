@@ -1,0 +1,45 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+
+<!-- Responsive -->
+<meta charset="utf-8"> 
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+<meta http-equiv="X-UA-Compatible" content="ie=edge"> 
+
+<meta rel="stylesheet" media="screen and (max-width: 1280px)" href="../petiteResolution.css"/>
+<!-- Title -->
+<title>JS_TP_0</title> 
+</head> 
+
+
+<body> 
+
+pleas, open your JS console.
+
+<div id="divA"><style>span {background-color: blue;}</style>Ceci est un <span>exemple de</span> texte</div>
+<div id="divB"></div>
+<div id="divC"></div>
+<div id="divD"></div>
+
+
+</body>
+
+
+<script>
+	var element = document.getElementById("divA");
+	var textContent = element.textContent;
+	var innerHTML = element.innerHTML;
+	var innerText = element.innerText;
+ 	
+ 	console.log("textContent: "+textContent);
+ 	console.log("innerHTML: "+innerHTML);
+ 	console.log("innerTEXT: "+innerText);
+
+ 	document.getElementById("divB").textContent = "textContent : <style>span {background-color: yellow;}</style> Ceci est un nouvel <span>exemple de </span>texte";
+	document.getElementById("divC").innerHTML = "innerHTML : <style>span {background-color: red;}</style> Ceci est un nouvel <span>exemple de </span>texte";
+	document.getElementById("divD").innerText = "innerText : <style>span {background-color: green;}</style> Ceci est un nouvel <span>exemple de </span>texte";
+
+</script>
+
+</html>
