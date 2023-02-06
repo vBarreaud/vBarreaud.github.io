@@ -1,0 +1,132 @@
+<!DOCTYPE html> 
+<html> 
+<head> 
+
+<!-- Responsive -->
+<meta charset="utf-8"> 
+<meta name="viewport" content="width=device-width, initial-scale=1"> 
+<meta http-equiv="X-UA-Compatible" content="ie=edge"> 
+
+<meta rel="stylesheet" media="screen and (max-width: 1280px)" href="../petiteResolution.css"/>
+<!-- Title -->
+<title>JS_TP_2.5_Arrays</title> 
+</head> 
+
+<body> 
+
+<H1>Collections and Arrays</H1>
+<p>
+<em>
+<h2>Collections in JS</h2>
+
+<h3>Dictionnaries</h3>
+JS Object can bee seen as dictionnaries. As in all Object Oriented Languages, methods can be use to 
+<ul>
+ <li>Retrieve the set of all the keys of the dictionary : <code>Object.keys()</code></li>
+ <li>Retrieve the set of all the values of the dictionary : <code>Object.values()</code></li>
+ <li>Create a list of key/value pairs : <code>Object.entries()</code></li>
+</ul>
+
+TO DO: create a dictionary with JavaScript Object Notation (JSON). This dictionary will have integers as keys and strings as values. It will contain the following ZIPCODE data: 
+<ul>
+  <li>22 -> "Côtes d'armor"</li>
+  <li>29 -> "Finistère"</li>
+  <li>56 -> "Morbihan"</li>
+</ul>
+In an html page, list all the keys, all the values and all the entries.
+
+<h3>Collections</h3>
+A whole JS API is dedicated to collections. It uses the <code>Array</code> data structure.
+
+<h4>"Map", "Filter", what ar those?</h4>
+Let's consider the following collection
+<pre>
+[
+    {"titre" : "20000 lieux sous les mers", "auteur" : "Jules Verne", "prix" : 15},
+    {"titre" : "Harry potter et l'ordre du phoenix", "auteur" : "JK Rowling", "prix" : 9}
+    ...]
+</pre>
+With a simple loop, all the elements can be listed (and more)
+<pre>
+for(l in livres){
+    print(l);
+}
+</pre>
+But what if we want to transform each elements or select a subset of the collection? To that end, one can use the <a ref="https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Array/map"><code>map</code></a> and <a href="https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Global_Objects/Array/filter"><code>filter</code></a> methods.
+<pre>
+livres.map(l => l["titre"] ) // returns a collection of titles
+livres.filter(l => l["prix"] < 10).map(l => l["titre"]) // returns a collection of titles for books cheaper than 10 euros. 
+</pre>
+Much more complex actions can be lead:
+<pre>
+livres.map(l => {
+    let t = l["titre"]
+    let a =   l["auteur"]
+    let p = l["prix"]
+    return "Livre - Titre :" +t+", Auteur : "+a+", Prix "+p+"€";
+}) //Returns a collection of strings describing every books
+</pre>
+TO DO : use this <a href="./randomUser.js">sample file</a> of random users (issued from the randomUser API) to extact the first name of all female users.
+
+</em>
+</p>
+<p>
+<h2>Un mot sur les collections en JS</h2>
+
+<h3>Dictionnaires</h3>
+On a déjà vu que l'on pouvait se servir d'un objet JS comme d'un dictionnaire. Il existe alors des méthodes, comme pour
+les autres languages pour :
+<ul>
+ <li>Récuperer l'ensemble des clés d'un dictionnaire : <code>Object.keys()</code></li>
+ <li>Récuperer l'ensemble des valeurs d'un dictionnaire : <code>Object.values()</code></li>
+ <li>Pouvoir avoir une liste de clé-valeur : <code>Object.entries()</code></li>
+</ul>
+
+Mise en pratique :en utilisant la notation JSON, créez un dictionnaire de type <code>int -> string</code>, avec les correspondances suivantes :
+<ul>
+  <li>22 -> "Côtes d'armor"</li>
+  <li>29 -> "Finistère"</li>
+  <li>56 -> "Morbihan"</li>
+</ul>
+Dans une page web, listez les clés, puis les valeurs puis enfin les entrées de ce dictionnaire.
+
+<h3>Collections</h3>
+Il existe en JS toute un API pour gérer les collections. Celle ci utilise la structure de données <code>Array</code>.
+
+<h4>Map, Filter kesako</h4>
+Imaginons une collection simple de livres 
+<pre>
+[
+    {"titre" : "20000 lieux sous les mers", "auteur" : "Jules Verne", "prix" : 15},
+    {"titre" : "Harry potter et l'ordre du phoenix", "auteur" : "JK Rowling", "prix" : 9}
+    ...]
+</pre>
+On peut, via une boucle, lister les élements et faire de chose dessus
+<pre>
+for(l in livres){
+    print(l);
+}
+</pre>
+Mais on veux souvent transformer et/ou filter la collection pour n'extraire que les informations qui nous interressent.
+C'est la que map et filter interviennent
+<pre>
+livres.map(l => l["titre"] ) // Nous renvoie une collection avec les titres
+livres.filter(l => l["prix"] < 10).map(l => l["titre"]) // Nous renvoie une collection avec les titres des livres qui coûtent moins de 10€
+</pre>
+On peut faire des choses plus complexes
+<pre>
+livres.map(l => {
+    let t = l["titre"]
+    let a =   l["auteur"]
+    let p = l["prix"]
+    return "Livre - Titre :" +t+", Auteur : "+a+", Prix "+p+"€";
+}) //Nous renvoie une collection avec une liste de string décrivant chaque livre
+</pre>
+TO DO : utiliser <a href="./randomUser.js">ce fichier</a> d'utilisateurs fictifs pour extraire une liste des prénoms des utilisatrices.
+</p>
+
+
+
+
+</body>
+</html>
