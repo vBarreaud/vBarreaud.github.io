@@ -9,25 +9,33 @@
 
 <meta rel="stylesheet" media="screen and (max-width: 1280px)" href="../petiteResolution.css"/>
 <!-- Title -->
-<title>JS_TP_3_AJAX</title> 
+<title>JS_TP_3_FETCH</title> 
 </head> 
 
 <body> 
 
 <H1>The "A" in AJAX stands for "Asynchronous"</H1>
 
-<em>
-I've build a web service on Heroku : <a href="https://stwom.herokuapp.com/">https://stwom.herokuapp.com/</a>.
-<br>
-Try and send a GET request to https://stwom.herokuapp.com/<b>int</b> with <b>int</b> an integer : you will receive a JSON object <code>{x:...,y:...}</code> with x and y between 0 and <b>int</b>. This object can be considered as coordinates.
-<br>
-Your job is to use the XHR object to ask for coordinates every seconds and then display a circle in a canvas at those coordinates.   
+<em>Until now, we have studied asynchronism resulting
+	<ol>
+		<li>from DOM events (<code>window.addEventListener("DOMContentLoaded",initFunctionCallBack)</code>)</li>
+		<li>from user interactions (<code>button.addEventListener("click",actionCallBack)</code>)</li>
+		<li>from the call of the Interval API (<code>setInterval(actionCallBack,delayInMs)</code>)</li>
+	</ol>
+	This lab introduces two sources of delay in treatment, resulting in an asynchronous thread : http requests and file access. 
+	<br>
+	To do both tasks, you can use the <a href="https://developer.mozilla.org/fr/docs/Web/API/Fetch_API">FETCH API</a>. This API uses a <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise">Promises</a>. The <code>Promise</code> object represents the eventual completion (or failure) of an asynchronous operation and its resulting value. 
+	<br>
+	You are asked to create a web page containing a html table of 10 random users (just the first name and last name). Each row will be filled with the response to a distinct http request to the randomUser API. Each request should be launched with a 1 second delay.
+	<br>
+	Hints : 
+	<ul>
+		<li>first, make a single call to the randomUser API and output the result to the console. What is the form of the response? How can you extract the desired data (first name and last name)(look at the FETCH API)?</li>
+		<li>Then, repeat the call every seconds, ten times.</li>
+		<li>Finally, modify your code so that the output is displayed in a html table, updated when a http response is received.</li>
+	</ul>
 </em>
 
-<H1>Des promesses, toujours des promesses...</H1>
-<em>
-	Do the exact same thing as above but use the <a href="https://developer.mozilla.org/fr/docs/Web/API/Fetch_API">FETCH API</a> instead.
-</em>
 
 
 </body>
