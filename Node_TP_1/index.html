@@ -1,9 +1,181 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title></title>
+		<title>First steps with Node JS</title>
 	</head>
 	<body>
-		
+		Node.js® is an open-source, cross-platform JavaScript runtime environment.
+		<h1>Documentations</h1>
+		<ul>
+			<li><a href="https://nodejs.org/en/">https://nodejs.org/en/</a></li>
+
+		</ul>
+
+		<h1>Install</h1>
+		<h2>On your PC</h2>
+		<ul>
+			<li>Download the source or installer <a href="https://nodejs.org/en/download">https://nodejs.org/en/download</a></li>
+			<li>Example for debian/Ubuntu : <a href="https://nodejs.org/en/download/package-manager/#debian-and-ubuntu-based-linux-distributions">via package Manager</a></li>
+
+		</ul>
+		<h2>In lab : deprecated</h2>
+
+		<H1>Getting Started</H1>
+		Try to reproduce the following in your environment: 
+
+		<h2>the <code>node</code> command line</h2>
+		The usual way to run a Node.js program is to run the globally available node command (once you install Node.js) and pass the name of the file you want to execute.
+
+If your main Node.js application file is <code>app.js</code>, you can call it by typing:
+<pre>
+	[user@ENSSAT]$ node app.js
+	</pre>
+If we run the node command without any script to execute or without any arguments, we start a REPL session, that is an interactiv shell.
+<pre>
+	[user@ENSSAT]$ node
+	>console.log('test')
+	test
+	undefined
+	>5==='5'
+	false
+	>[1,2,3].forEach(num=>{
+	...console.log(num)	
+	...})
+	1
+	2
+	3
+	undefined
+	</pre>
+
+		<h2>How to debug and enhance your code?</h2>
+		There might be cases where it's useful to print the call stack trace of a function, maybe to answer the question how did you reach that part of the code? You can do so using <code>console.trace():</code>
+		<pre>
+		const function2 = () => console.trace();
+		const function1 = () => function2();
+		function1();	
+		</pre>
+		You can easily calculate how much time a function takes to run, using <code>time()</code> and <code>timeEnd()</code>
+		<pre>
+		const doSomething = () => console.log('test');
+		const measureDoingSomething = () => {
+  			console.time('doSomething()');
+  			// do something, and measure the time it takes
+  			doSomething();
+  			console.timeEnd('doSomething()');
+		};
+		measureDoingSomething();	
+		</pre>
+
+		<H2>A simple http server (from nodejs.com)</H2>
+		Once we have installed Node.js, let's build our first web server. Create a file named app.js containing the following contents:
+<pre>
+//This code first includes the Node.js http module in its standard library.
+const http = require('http'); 
+
+const hostname = '127.0.0.1';
+const port = 3000;
+
+//The createServer() method of the http module creates a new HTTP server and returns it.
+/*
+Whenever a new request is received, the request event is called, providing two objects: a request (an http.IncomingMessage object) and a response (an http.ServerResponse object).
+*/
+const server = http.createServer((req, res) => { //req and res are JS objects  containing the http request and response
+  res.statusCode = 200; //(return) status code is a field of the http response object
+  res.setHeader('Content-Type', 'text/plain'); // is the set of headers
+  res.end('Hello World'); // the end methods pack the response and send it to the client.
+});
+
+//The server is set to listen on the specified port and host name. 
+//When the server is ready, the callback function is called, 
+// in this case informing us that the server is running.
+server.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
+});
+</pre>
+Now, run your web server typing <code>node app.js</code> command in your terminal. 
+Visit <code>http://localhost:3000</code> and you will see a message saying "Hello World".
+
+
+	<H2>The Node Package Manager (npm)</H2>
+
+	<h3>Create a node project</h3>
+
+
+	
+	<h3>launch a project</h3>
+	<h3>the Progress package</h3>
+	Progress is an awesome package to create a progress bar in the console. Install it using npm install progress<br>
+	This snippet creates a 10-step progress bar, and every 100ms one step is completed. When the bar completes we clear the interval.
+	<pre>
+	const ProgressBar = require('progress');
+	const bar = new ProgressBar(':bar', { total: 10 });
+	const timer = setInterval(() => {
+  		bar.tick();
+  		if (bar.complete) {
+    		clearInterval(timer);
+  		}
+	}, 100);	
+	</pre>
+	<h3>the Chalk package</h3>
+	You install it with 
+	<code>[user@ENSSAT]$ npm install chalk@4</code>, then you can use it:
+	<pre>
+		const chalk = require('chalk');
+		console.log(chalk.yellow('hi!'));
+	</pre>
+	<h3>the nodemon package</h3>
+	The node command has to be re-executed in bash whenever there is a change in the application. To restart the application automatically, use the nodemon module.
+	You can also install nodemon as a development dependency:
+	<pre>
+		[user@ENSSAT]$ npm i --save-dev nodemon
+	</pre>
+	Run the application using the nodemon command followed by the application's file name:
+	<pre>
+		[user@ENSSAT]$ nodemon app.js
+	</pre>
+	or, add a script into you <code>package.json</code> file.
+	<pre>
+		{
+  			"scripts": {
+  				"start": "node app.js",
+    			"nodemon": "nodemon app.js"
+  			}
+		}
+	</pre>
+	and run <code>[user@ENSSAT]$ npm run nodemon</code>
+	<h3>the jest package</h3>
+	<a href="https://jestjs.io/">Jest</a> is a delightful JavaScript Testing Framework with a focus on simplicity.
+	<pre>
+		[user@ENSSAT]$ npm install --save-dev jest
+	</pre>
+	Add the following section to your <code>package.json</code> file:
+	<pre>
+		{
+  			"scripts": {
+  				"start": "node app.js",
+    			"nodemon": "nodemon app.js",
+    			"test": "jest"
+  			}
+		}
+	</pre>
+	Let's get started by writing a test for a hypothetical function that adds two numbers. First, create a <code>sum.js</code> file:
+	<pre>
+		function sum(a, b) {
+  			return a + b;
+		}
+		module.exports = sum;
+	</pre>
+	Then, create a file named <code>sum.test.js</code>. This will contain our actual test:
+	<pre>
+		const sum = require('./sum');
+		test('adds 1 + 2 to equal 3', () => {
+  			expect(sum(1, 2)).toBe(3);
+		});
+	</pre>
+	Finally, run <code>npm test</code> and Jest will print this message:
+	<pre>
+		PASS  ./sum.test.js
+		✓ adds 1 + 2 to equal 3 (5ms)
+	</pre>
 	</body>
 </html>
