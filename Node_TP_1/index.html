@@ -28,43 +28,43 @@
 
 If your main Node.js application file is <code>app.js</code>, you can call it by typing:
 <pre>
-	[user@ENSSAT]$ node app.js
-	</pre>
+[user@ENSSAT]$ node app.js
+</pre>
 If we run the node command without any script to execute or without any arguments, we start a REPL session, that is an interactiv shell.
 <pre>
-	[user@ENSSAT]$ node
-	>console.log('test')
-	test
-	undefined
-	>5==='5'
-	false
-	>[1,2,3].forEach(num=>{
-	...console.log(num)	
-	...})
-	1
-	2
-	3
-	undefined
-	</pre>
+[user@ENSSAT]$ node
+>console.log('test')
+test
+undefined
+>5==='5'
+false
+>[1,2,3].forEach(num=>{
+...console.log(num)	
+...})
+1
+2
+3
+undefined
+</pre>
 
 		<h2>How to debug and enhance your code?</h2>
 		There might be cases where it's useful to print the call stack trace of a function, maybe to answer the question how did you reach that part of the code? You can do so using <code>console.trace():</code>
-		<pre>
-		const function2 = () => console.trace();
-		const function1 = () => function2();
-		function1();	
-		</pre>
+<pre>
+const function2 = () => console.trace();
+const function1 = () => function2();
+function1();	
+</pre>
 		You can easily calculate how much time a function takes to run, using <code>time()</code> and <code>timeEnd()</code>
-		<pre>
-		const doSomething = () => console.log('test');
-		const measureDoingSomething = () => {
-  			console.time('doSomething()');
-  			// do something, and measure the time it takes
-  			doSomething();
-  			console.timeEnd('doSomething()');
-		};
-		measureDoingSomething();	
-		</pre>
+<pre>
+const doSomething = () => console.log('test');
+const measureDoingSomething = () => {
+		console.time('doSomething()');
+		// do something, and measure the time it takes
+		doSomething();
+		console.timeEnd('doSomething()');
+};
+measureDoingSomething();	
+</pre>
 
 		<H2>A simple http server (from nodejs.com)</H2>
 		Once we have installed Node.js, let's build our first web server. Create a file named app.js containing the following contents:
@@ -107,110 +107,132 @@ Visit <code>http://localhost:3000</code> and you will see a message saying "Hell
 <p>The following steps show how you can use npm to download a package, save it into the project dependencies, and then require it in a Node application.
 <ol>
 <li>First create a directory for your new application and navigate into it:
-	<pre>
-	[user@ENSSAT]$ mkdir myapp
-	[user@ENSSAT]$ cd myapp
-	</pre></li>
+<pre>
+[user@ENSSAT]$ mkdir myapp
+[user@ENSSAT]$ cd myapp
+</pre></li>
 <li>Use the npm init command to create a package.json file for your application. This command prompts you for a number of things, including the name and version of your application and the name of the initial entry point file (by default this is index.js). For now, just accept the defaults:
-	<pre>
-	[user@ENSSAT]$ npm init
-	</pre>
+<pre>
+[user@ENSSAT]$ npm init
+</pre>
 If you display the package.json file (cat package.json), you will see the defaults that you accepted, ending with the license.
 </li>
 <li>Now install the <code>chalk</code> package in the <code>myapp</code> directory and save it in the dependencies list of your package.json file:
-	<pre>
-		[user@ENSSAT]$ npm install chalk@4
-	</pre>
+<pre>
+[user@ENSSAT]$ npm install chalk@4
+</pre>
 The dependencies section of your <code>package.json</code> will now appear at the end of the package.json file and will include chalk.</li>
 <li>
 To use the Chalk library you call the require() function in your index.js file to include it in your application. Create this file now, in the root of the "myapp" application directory, and give it the following contents:
-	<pre>
-		const chalk = require('chalk');
-		console.log(chalk.yellow('hi!'));
-	</pre>
+<pre>
+const chalk = require('chalk');
+console.log(chalk.yellow('hi!'));
+</pre>
 </li>
 </ol>
 
 
 </p>	
 
-	
-	<h3>launch a project</h3>
+	<h2>Running tasks</h2>
 	You can start your app by calling node with the script in your command prompt:
-	<pre>
-		[user@ENSSAT]$ node index.js
-	</pre>
+<pre>
+[user@ENSSAT]$ node index.js
+</pre>
+	<p>In addition to defining and fetching dependencies you can also define named scripts in your package.json files and call npm to execute them with the run-script command. This approach is commonly used to automate running tests and parts of the development or build toolchain.</p>
+	<p>
+		For example, to define a script to copy your app into a production folder and run automatically your app, we might add the following script block to our package.json file:
+<pre>
+{
+		"scripts": {
+			"start": "node index.js",
+			"prod": "cp index.js prod/. && cd prod && node index.js"
+		}
+}	
+</pre>
+	</p>
+	
+	<h2>The development process</h2>
+	If a dependency is only used during development, you should  save it as a "development dependency" (so that your package users don't have to install it in production). 
 
-	<h3>the Progress package</h3>
-	Progress is an awesome package to create a progress bar in the console. Install it using npm install progress<br>
-	This snippet creates a 10-step progress bar, and every 100ms one step is completed. When the bar completes we clear the interval.
-	<pre>
-	const ProgressBar = require('progress');
-	const bar = new ProgressBar(':bar', { total: 10 });
-	const timer = setInterval(() => {
-  		bar.tick();
-  		if (bar.complete) {
-    		clearInterval(timer);
-  		}
-	}, 100);	
-	</pre>
 	<h3>the nodemon package</h3>
 	The node command has to be re-executed in bash whenever there is a change in the application. To restart the application automatically, use the nodemon module.
-	You can also install nodemon as a development dependency:
-	<pre>
-		[user@ENSSAT]$ npm i --save-dev nodemon
-	</pre>
+	You can install nodemon as a development dependency:
+<pre>
+[user@ENSSAT]$ npm i --save-dev nodemon
+</pre>
 	Run the application using the nodemon command followed by the application's file name:
-	<pre>
-		[user@ENSSAT]$ nodemon app.js
-	</pre>
+<pre>
+[user@ENSSAT]$ nodemon app.js
+</pre>
 	or, add a script into you <code>package.json</code> file.
-	<pre>
-		{
-  			"scripts": {
-  				"start": "node app.js",
-    			"nodemon": "nodemon app.js"
-  			}
+<pre>
+{
+		"scripts": {
+			"start": "node app.js",
+			"nodemon": "nodemon app.js"
 		}
-	</pre>
+}
+</pre>
 	and run <code>[user@ENSSAT]$ npm run nodemon</code>
 	<h3>the jest package</h3>
 	<a href="https://jestjs.io/">Jest</a> is a delightful JavaScript Testing Framework with a focus on simplicity.
-	<pre>
-		[user@ENSSAT]$ npm install --save-dev jest
-	</pre>
+<pre>
+[user@ENSSAT]$ npm install --save-dev jest
+</pre>
 	Add the following section to your <code>package.json</code> file:
-	<pre>
-		{
-  			"scripts": {
-  				"start": "node app.js",
-    			"nodemon": "nodemon app.js",
-    			"test": "jest"
-  			}
+<pre>
+{
+		"scripts": {
+			"start": "node app.js",
+			"nodemon": "nodemon app.js",
+			"test": "jest"
 		}
-	</pre>
+}
+</pre>
 	Let's get started by writing a test for a hypothetical function that adds two numbers. First, create a <code>sum.js</code> file:
-	<pre>
-		function sum(a, b) {
-  			return a + b;
-		}
-		module.exports = sum;
-	</pre>
+<pre>
+function sum(a, b) {
+		return a + b;
+}
+module.exports = sum;
+</pre>
 	Then, create a file named <code>sum.test.js</code>. This will contain our actual test:
-	<pre>
-		const sum = require('./sum');
-		test('adds 1 + 2 to equal 3', () => {
-  			expect(sum(1, 2)).toBe(3);
-		});
-	</pre>
+<pre>
+const sum = require('./sum');
+test('adds 1 + 2 to equal 3', () => {
+		expect(sum(1, 2)).toBe(3);
+});
+</pre>
 	Finally, run <code>npm test</code> and Jest will print this message:
-	<pre>
-		PASS  ./sum.test.js
-		✓ adds 1 + 2 to equal 3 (5ms)
-	</pre>
+<pre>
+	PASS  ./sum.test.js
+	✓ adds 1 + 2 to equal 3 (5ms)
+</pre>
 
 	<h3>the eslint package</h3>
-		<pre></pre>
+ To use the popular JavaScript Linting tool <a href="https://eslint.org/">ESLint</a> you would call npm as shown:
+<pre>
+[user@ENSSAT]$ npm install eslint --save-dev
+</pre>
+ "Linters" are tools that perform static analysis on software in order to recognize and report adherence/non-adherence to some set of coding best practice.
+
+
+<h2>Nice to Have</h2>
+<h3>the Progress package</h3>
+	Progress is an awesome package to create a progress bar in the console. Install it using npm install progress<br>
+	This snippet creates a 10-step progress bar, and every 100ms one step is completed. When the bar completes we clear the interval.
+<pre>
+const ProgressBar = require('progress');
+const bar = new ProgressBar(':bar', { total: 10 });
+const timer = setInterval(() => {
+		bar.tick();
+		if (bar.complete) {
+		clearInterval(timer);
+		}
+}, 100);	
+</pre>
+
 
 	</body>
 </html>
