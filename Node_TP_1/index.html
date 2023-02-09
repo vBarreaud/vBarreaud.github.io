@@ -97,12 +97,50 @@ Visit <code>http://localhost:3000</code> and you will see a message saying "Hell
 
 
 	<H2>The Node Package Manager (npm)</H2>
+<p>Next to Node itself, npm is the most important tool for working with Node applications. npm is used to fetch any packages (JavaScript libraries) that an application needs for development, testing, and/or production, and may also be used to run tests and tools used in the development process.</p>
+<p>You can manually use npm to separately fetch each needed package. Typically we instead manage dependencies using a plain-text definition file named package.json. This file lists all the dependencies for a specific JavaScript "package", including the package's name, version, description, initial file to execute, production dependencies, development dependencies, versions of Node it can work with, etc. The package.json file should contain everything npm needs to fetch and run your application (if you were writing a reusable library you could use this definition to upload your package to the npm repository and make it available for other users).</p>
 
-	<h3>Create a node project</h3>
 
+	<h3>Setting up a Node development environment (from <a href="https://developer.mozilla.org/en-US/docs/Learn/Server-side/Express_Nodejs/development_environment#using_npm">MDN</a>)</h3>
+
+
+<p>The following steps show how you can use npm to download a package, save it into the project dependencies, and then require it in a Node application.
+<ol>
+<li>First create a directory for your new application and navigate into it:
+	<pre>
+	[user@ENSSAT]$ mkdir myapp
+	[user@ENSSAT]$ cd myapp
+	</pre></li>
+<li>Use the npm init command to create a package.json file for your application. This command prompts you for a number of things, including the name and version of your application and the name of the initial entry point file (by default this is index.js). For now, just accept the defaults:
+	<pre>
+	[user@ENSSAT]$ npm init
+	</pre>
+If you display the package.json file (cat package.json), you will see the defaults that you accepted, ending with the license.
+</li>
+<li>Now install the <code>chalk</code> package in the <code>myapp</code> directory and save it in the dependencies list of your package.json file:
+	<pre>
+		[user@ENSSAT]$ npm install chalk@4
+	</pre>
+The dependencies section of your <code>package.json</code> will now appear at the end of the package.json file and will include chalk.</li>
+<li>
+To use the Chalk library you call the require() function in your index.js file to include it in your application. Create this file now, in the root of the "myapp" application directory, and give it the following contents:
+	<pre>
+		const chalk = require('chalk');
+		console.log(chalk.yellow('hi!'));
+	</pre>
+</li>
+</ol>
+
+
+</p>	
 
 	
 	<h3>launch a project</h3>
+	You can start your app by calling node with the script in your command prompt:
+	<pre>
+		[user@ENSSAT]$ node index.js
+	</pre>
+
 	<h3>the Progress package</h3>
 	Progress is an awesome package to create a progress bar in the console. Install it using npm install progress<br>
 	This snippet creates a 10-step progress bar, and every 100ms one step is completed. When the bar completes we clear the interval.
@@ -115,13 +153,6 @@ Visit <code>http://localhost:3000</code> and you will see a message saying "Hell
     		clearInterval(timer);
   		}
 	}, 100);	
-	</pre>
-	<h3>the Chalk package</h3>
-	You install it with 
-	<code>[user@ENSSAT]$ npm install chalk@4</code>, then you can use it:
-	<pre>
-		const chalk = require('chalk');
-		console.log(chalk.yellow('hi!'));
 	</pre>
 	<h3>the nodemon package</h3>
 	The node command has to be re-executed in bash whenever there is a change in the application. To restart the application automatically, use the nodemon module.
@@ -177,5 +208,9 @@ Visit <code>http://localhost:3000</code> and you will see a message saying "Hell
 		PASS  ./sum.test.js
 		✓ adds 1 + 2 to equal 3 (5ms)
 	</pre>
+
+	<h3>the eslint package</h3>
+		<pre></pre>
+
 	</body>
 </html>
