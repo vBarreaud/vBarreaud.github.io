@@ -1,4 +1,4 @@
-export class counter{
+class counterClass{
 	constructor(){
 		this._counter=0;
 	}
@@ -12,3 +12,5 @@ export class counter{
 	}
 
 }
+
+export const counter = new counterClass();
