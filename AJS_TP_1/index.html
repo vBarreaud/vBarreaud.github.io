@@ -1,9 +1,40 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title></title>
+		<title>Advanced JS</title>
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+		<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+		<script>
+  			hljs.initHighlightingOnLoad();
+		</script>
 	</head>
 	<body>
-		
+
+
+	<H1>Modules (from <a href="https://javascript.info/modules-intro">javascript.info</a>)</H1>
+	<p>As our application grows bigger, we want to split it into multiple files, so called “modules”. A module may contain a class or a library of functions for a specific purpose.</p>
+	<p>For a long time, JavaScript existed without a language-level module syntax. That wasn’t a problem, because initially scripts were small and simple, so there was no need.</p>
+	<p>language-level module system appeared in the standard in 2015, gradually evolved since then, and is now supported by all major browsers and in Node.js.</p>
+	<p>Modules can load each other and use special directives export and import to interchange functionality, call functions of one module from another one:<ul>
+	<li><code>export</code> keyword labels variables and functions that should be accessible from outside the current module.</li>
+	<li>import allows the import of functionality from other modules.</il>
+	</ul></p>
+	<p>For instance, if we have a file <code>sayHi.js</code> exporting a function:
+	<pre><code class="js">
+	//file: sayHi.js 
+	export function sayHi(user) {
+  		alert(`Hello, ${user}!`);
+	}
+	</code></pre>
+	Then another file may import and use it:
+	<pre><code class="js">
+	//file: main.js
+	import {sayHi} from './sayHi.js';
+	sayHi('John'); // Hello, John!
+	</code></pre>
+	</p>
+	<h2>JS Modules and browsers</h2>
+	As modules support special keywords and features, we must tell the browser that a script should be treated as a module, by using the attribute <code>module</code>. See <a href="./sample.html">this code</a>.
+	
 	</body>
 </html>
