@@ -23,7 +23,7 @@
 	<pre><code class="js">
 	//file: sayHi.js 
 	export function sayHi(user) {
-  		alert(`Hello, ${user}!`);
+  		return `Hello, ${user}!`;
 	}
 	</code></pre>
 	Then another file may import and use it:
@@ -34,7 +34,37 @@
 	</code></pre>
 	</p>
 	<h2>JS Modules and browsers</h2>
-	As modules support special keywords and features, we must tell the browser that a script should be treated as a module, by using the attribute <code>module</code>. See <a href="./sample.html">this code</a>.
-	
+	<p>As modules support special keywords and features, we must tell the browser that a script should be treated as a module, by using the attribute <code>module</code>. See <a href="./sample.html">this code</a>.</p>
+	<p>If you try to open a web-page locally, via <code>file://</code> protocol, you’ll find that import/export directives don’t work. Use a local web-server, such as static-server or use the “live server” capability of your editor, such as VS Code Live Server Extension to test modules.</p>
+	<h2>import / export </h2>
+
+	<h2>Features</h2>
+	<ul>
+		<li>
+			Modules always work in <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Strict_mode">strict mode</a>. For example assigning to an undeclared variable will give an error.
+		</li>
+		<li>
+			Each module has its own top-level scope. In other words, top-level variables and functions from a module are not seen in other scripts. With modules we use import/export instead of relying on global variables. In the browser, if we talk about HTML pages, independent top-level scope also exists for each <code>script</code> element.
+		</li>
+		<li>
+			<p>If the same module is imported into multiple other modules, its code is executed only once, upon the first import. Then its exports are given to all further importers.</p>
+			<p>Let’s say, a module exports an object <code>admin</code>. If this module is imported from multiple files, the module is only evaluated the first time, <code>admin</code> object is created, and then passed to all further importers. All importers get exactly the one and only <code>admin</code> object.</p>	
+		</li>
+		<li>
+			The object <code>import.meta</code> contains the information about the current module. In the browser, it contains the URL of the script, or a current webpage URL if inside HTML.
+		</li>
+		<li>
+			In a module, <code>this</code> is undefined.
+		</li>
+		<li>Module scripts are deferred :
+			<ul>
+			<li>Downloading external module scripts doesn’t block HTML processing, they load in parallel with other resources.</li>
+			<li>Module scripts wait until the HTML document is fully ready, and then run.</li>
+			<li>relative order of scripts is maintained: scripts that go first in the document, execute first</li>
+			</ul>
+		</li>
+		<li>For non-module scripts, the <code>async</code> attribute only works on external scripts. Async scripts run immediately when ready, independently of other scripts or the HTML document. For module scripts, it works on inline scripts as well. For example, the inline script used <a href="moduleAsync.html">here</a> has async, so it doesn’t wait for anything.
+		</li>
+	</ul>
 	</body>
 </html>
