@@ -8,8 +8,26 @@
 		<script>
   			hljs.initHighlightingOnLoad();
 		</script>
+		<style>
+			.todo{
+				border:solid black;
+				background-color: yellow;
+			}
+		</style>
 	</head>
 	<body>
+
+		<div class="todo">
+			<p>The goal of this lab is to get accointed to NodeJS and JS development for this framework. </p>
+			<p>At the end of this lab, you should be abble to produce a maintanable CLI app hosted on NodeJS. Let's call it "ZeApp"</p>
+			<p>The purpose of "ZeApp" is to get a list of 100 random french addresses. You will use the <code>axios</code> <a href="https://www.npmjs.com/package/axios">package</a> and the <a hreff="https://randomuser.me/documentation#howto">randomuser.me</a> API (see section "Nationalities").</p>. 
+			<p>Nice to have : a progress bar and a nice CLI interface.... all with node, of course.</p>
+		</div>
+
+
+
+
+
 		Node.js® is an open-source, cross-platform JavaScript runtime environment.
 		<h1>Documentations</h1>
 		<ul>
@@ -141,9 +159,101 @@ console.log(chalk.yellow('hi!'));
 </code></pre>
 </li>
 </ol>
-
-
 </p>	
+
+	<h3>Modules in NodeJS (from <a href="https://nodejs.org/dist/latest-v18.x/docs/api/modules.html#modules-commonjs-modules">nodejs.org</a>)</h3>
+	<p>Modules come in different flavours. Mainly CommonJS modules and ECMAScript modules.</p>
+	<p>Calling <code>require()</code> always use the CommonJS module loader. Calling <code>import()</code> always use the ECMAScript module loader. Chances are you will encounter both types.</p>
+
+	<h4>CommonJS modules </h4>
+	<p>CommonJS modules are the original way to package JavaScript code for Node.js. Node.js also supports the ECMAScript modules standard (since v8.5, standard since v13.2.0) used by browsers and other JavaScript runtimes.</p>
+	<p>In Node.js, each file is treated as a separate module. For example, consider a file named foo.js:
+	<pre><code class="js">
+		const circle = require('./circle.js');
+		console.log(`The area of a circle of radius 4 is ${circle.area(4)}`);
+	</code></pre>
+	On the first line, foo.js loads the module circle.js that is in the same directory as foo.js. Here are the contents of circle.js:
+	<pre><code class="js">
+		const { PI } = Math;
+		exports.area = (r) => PI * r ** 2;
+		exports.circumference = (r) => 2 * PI * r;
+	</code></pre><
+	The module <code>circle.js</code> has exported the functions <code>area()</code> and <code>circumference()</code>. Functions and objects are added to the root of a module by specifying additional properties on the special exports object. Variables local to the module will be private, because the module is wrapped in a function by Node.js. </p> 
+	<p>The <code>module.exports</code> property can be assigned a new value (such as a function or object):
+	<pre><code class="js">
+		const Square = require('./square.js');
+		const mySquare = new Square(2);
+		console.log(`The area of mySquare is ${mySquare.area()}`);
+	</code></pre>
+	The <code>square</code> module is defined in <code>square.js</code>:
+	<pre><code class="js">
+		// Assigning to exports will not modify module, must use module.exports
+		module.exports = class Square {
+  		constructor(width) {
+    		this.width = width;
+  		}
+
+  		area() {
+    		return this.width ** 2;
+  		}
+		};
+	</code></pre>
+	</p>
+	<p>the CommonJS module loader:
+		<ul>
+			<li>It is fully synchronous.</li>
+			<li>It is responsible for handling require() calls.</li>
+			<li>It supports folders as modules.</li>
+			<li>When resolving a specifier, if no exact match is found, it will try to add extensions (.js, .json, and finally .node) and then attempt to resolve folders as modules.</li>
+			<li>It treats .json as JSON text files.</li>
+		</ul>
+	</p>
+
+	<h4>ECMAScript modules (aka ES modules)</h4>
+	<p>Authors can tell Node.js to use the ECMAScript modules loader via the .mjs file extension, the package.json "type" field, or the --input-type flag. Outside of those cases, Node.js will use the CommonJS module loader.</p>
+	<pre><code class="js">
+		{ 
+			"name": "my-app", 
+			"version": "1.0.0", 
+			"type": "module", 
+			// ... 
+		} 
+	</code></pre>
+	
+	<p>the ECMAScript module loader:
+		<ul>
+			<li>It is asynchronous.</li>
+			<li>It is responsible for handling import statements and import() expressions.</li>
+			<li>It does not support folders as modules, directory indexes (e.g. './startup/index.js') must be fully specified.</li>
+			<li>It does no extension searching. A file extension must be provided when the specifier is a relative or absolute file URL.</li>
+			<li>It can load JSON modules, but an import assertion is required.</li>
+			<li>It accepts only .js, .mjs, and .cjs extensions for JavaScript text files.</li>
+	</ul>
+	</p>
+	<p>An easy way to tell Node.js to treat the modules in ECMAScript format is to use the .mjs file extension:
+	<pre><code class="js">
+		// weekday-from-date.mjs (ES Module) 
+		const WEEKDAY = ['Monday', 'Tuesday', ‘Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']; 
+		
+		export function weekDayFromDate(date) { 
+			if (!(date instanceof Date)) { 
+				date = new Date(date); 
+			} 
+			return WEEKDAY[date.getWeekday()]; 
+		}
+	</code></pre> 
+	<pre><code class="js">
+		// weekday.mjs (ES Module) 
+		import { weekDayFromDate } from './weekday-from-date.mjs'; 
+		const dateString = process.argv[2] ?? null; 
+		console.log(weekDayFromDate(dateString)); 
+	</code></pre> 
+	Now if we run weekday.mjs module in command line: 
+	<pre><code class="bash">
+		[user@ENSSAT]$ node ./weekday.mjs "2022-06-08" 
+	</code></pre>
+	</p>
+
 
 	<h2>Running tasks</h2>
 	You can start your app by calling node with the script in your command prompt:

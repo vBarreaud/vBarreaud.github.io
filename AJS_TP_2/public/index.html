@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Démonstration de Promesses</title>
+  
+  <script>
+    document.addEventListener("DOMContentLoaded", init);
+
+    let tabImages = new Array();
+
+    function loadImage(pathToImage){
+      const image = new Image(200,200); //width, height
+
+      return new Promise((fonctionALancerSiToutSePasseBien, fonctionALancerSiCaVaMal) => {
+
+        image.addEventListener("load",()=>{
+          console.log(`Yessss, ${pathToImage} is loaded`);
+          fonctionALancerSiToutSePasseBien();
+        });
+
+        image.addEventListener("error",()=>{
+          fonctionALancerSiCaVaMal(`Caramba, cannot load ${pathToImage}`);
+        });
+
+        image.src = pathToImage;
+        tabImages.push(image);
+      });
+
+    }
+
+
+    function init(){
+      loadImage("./rock.png")
+        .then(()=> loadImage("./paper.png"))
+        .then(()=> loadImage("./scissors.png"))
+        .then(afficheImages)
+        .catch(console.log);
+    }
+
+    function afficheImages(){
+      let targetDiv = document.getElementById("imageSet");
+      for(let image of tabImages){
+        targetDiv.appendChild(image);
+      }
+    }
+
+
+  </script>
+
+</head>
+
+<body>
+  
+  <fieldset>
+    <legend>Charger des ressources (images)</legend>
+    <div id="imageSet"></div>
+  </fieldset>
+
+  
+</body>
+</html>

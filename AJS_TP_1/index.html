@@ -36,7 +36,81 @@
 	<h2>JS Modules and browsers</h2>
 	<p>As modules support special keywords and features, we must tell the browser that a script should be treated as a module, by using the attribute <code>module</code>. See <a href="./sample.html">this code</a>.</p>
 	<p>If you try to open a web-page locally, via <code>file://</code> protocol, you’ll find that import/export directives don’t work. Use a local web-server, such as static-server or use the “live server” capability of your editor, such as VS Code Live Server Extension to test modules.</p>
-	<h2>import / export </h2>
+
+	<h2>import / export (see <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Modules">MDN</a>)</h2>
+	The first thing you do to get access to module features is export them. This is done using the <code>export</code> statement. You can export functions, var, let, const, and — as we'll see later — classes. They need to be top-level items; you can't use export inside a function, for example. The easiest way to use it is to place it in front of any items you want exported out of the module, for example:
+<pre><code class="js">
+export const name = "square";
+
+export function draw(ctx, length, x, y, color) {
+  ctx.fillStyle = color;
+  ctx.fillRect(x, y, length, length);
+
+  return { length, x, y, color };
+}
+</code></pre>
+A more convenient way of exporting all the items you want to export is to use a single export statement at the end of your module file, followed by a comma-separated list of the features you want to export wrapped in curly braces. For example:	
+<pre><code class="js">
+export { name, draw, reportArea, reportPerimeter };
+</code></pre>
+Once you've exported some features out of your module, you need to import them into your script to be able to use them. The simplest way to do this is as follows:
+<pre><code class="js">
+import { name, draw, reportArea, reportPerimeter } from "./modules/square.js";
+</code></pre>
+You use the <code>import</code> statement, followed by a comma-separated list of the features you want to import wrapped in curly braces, followed by the keyword from, followed by the module specifier.
+<br>
+The module specifier provides a string that the JavaScript environment can resolve to a path to the module file. In a browser, this could be a path relative to the site root, which for our basic-modules example would be /js-examples/module-examples/basic-modules. However, here we are instead using the dot (.) syntax to mean "the current location", followed by the relative path to the file we are trying to find. This is much better than writing out the entire absolute path each time, as relative paths are shorter and make the URL portable — the example will still work if you move it to a different location in the site hierarchy.
+<h3>import maps</h3>
+Import maps allow developers to specify almost any text they want in the module specifier when importing a module; the map provides a corresponding value that will replace the text when the module URL is resolved.
+<pre><code class="js">
+import { name as squareName, draw } from "./shapes/square.js";
+import { name as circleName } from "https://example.com/shapes/circle.js";
+</code></pre>
+<h3>default exports and named exports</h3>
+There is also a type of export called the default export — this is designed to make it easy to have a default function provided by a module.
+<pre><code class="js">
+//file : ./modules/square.js
+export default function (ctx) {
+  // …
+}
+</code></pre>
+and 
+<pre><code class="js">
+//file : ./main.js
+import randomSquare from "./modules/square.js";
+//or : import { default as randomSquare } from "./modules/square.js";
+</code></pre>
+<h3>Renaming exports</h3>
+renaming can also take place at export: 
+<pre><code class="js">
+//file : ./modules/square.js
+export { function1 as newFunctionName, function2 as anotherNewFunctionName };
+</code></pre>
+<h3>Creating a module object</h3>
+ An even better solution is to import each module's features inside a module object. The following syntax form does that:
+<pre><code class="js">
+import * as Module from "./modules/module.js";
+//...
+Module.function1();
+Module.function2();
+</code></pre>
+<h3>Modules and classes</h3>
+You can also export and import classes; this is another option for avoiding conflicts in your code, and is especially useful if you've already got your module code written in an object-oriented style.
+<pre><code class="js">
+class Square {
+  constructor(ctx, listId, length, x, y, color) {
+    // …
+  }
+
+  draw() {
+    // …
+  }
+
+  // …
+}
+export {Square};
+</code></pre>
+
 
 	<h2>Features</h2>
 	<ul>
@@ -64,6 +138,9 @@
 			</ul>
 		</li>
 		<li>For non-module scripts, the <code>async</code> attribute only works on external scripts. Async scripts run immediately when ready, independently of other scripts or the HTML document. For module scripts, it works on inline scripts as well. For example, the inline script used <a href="moduleAsync.html">here</a> has async, so it doesn’t wait for anything.
+		</li>
+		<li>
+			External scripts that are fetched from another origin (e.g. another site) require CORS headers (Cross-Origin Requests). In other words, if a module script is fetched from another origin, the remote server must supply a header <code>Access-Control-Allow-Origin</code> allowing the fetch.
 		</li>
 	</ul>
 	</body>
