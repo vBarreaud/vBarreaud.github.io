@@ -1,16 +1,16 @@
-class counterClass{
+class analyticsClass{
 	constructor(){
-		this._counter=0;
+		this._value=1;
 	}
 
-	async count(){
+	async evaluate(){
 		const promise = new Promise((success,reject)=>{
 			this._count++;
-			setTimeout(()=>{console.log(`count is ${this._count}`)},1000)
+			setTimeout(()=>{console.log(`value is ${this._value}`)},1000)
 		})
 		await promise.then(()=>console.log("DONE"));
 	}
 
 }
 
-export const counter = new counterClass();
+export const analytics = new analyticsClass();

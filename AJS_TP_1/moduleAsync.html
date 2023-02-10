@@ -4,11 +4,19 @@
 	<title>async modules</title>
 </head>
 <script async type="module">
-  import {counter} from './analytics.js';
-
-  counter.count();
+  import {analytics} from './analytics.js';
+  analytics.evaluate();
+</script>
+<script>
+	const now = Date.now();
+	let counter=0;
+	while(Date.now()<now+2000){
+		// this may take some time
+		counter++;
+	}
+	console.log(`done, counter is ${counter}`)
 </script>
 <body>
-	<!-- Nothing -->
+	see the console : evaluates in 1 sec.
 </body>
 </html>
