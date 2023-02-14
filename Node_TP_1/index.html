@@ -20,15 +20,14 @@
 		<div class="todo">
 			<p>The goal of this lab is to get accointed to NodeJS and JS development for this framework. </p>
 			<p>At the end of this lab, you should be abble to produce a maintanable CLI app hosted on NodeJS. Let's call it "ZeApp"</p>
-			<p>The purpose of "ZeApp" is to get a list of 100 random french addresses. You will use the <code>axios</code> <a href="https://www.npmjs.com/package/axios">package</a> and the <a href="https://randomuser.me/documentation#howto">randomuser.me</a> API (see section "Nationalities").</p> 
-			<p>Nice to have : a progress bar and a nice CLI interface.... all with node, of course.</p>
+			<p>The purpose of "ZeApp" is to get a list of 100 random french addresses. You will use the <code>node-fetch@2</code> package (the node version of fetch) and the <code>randomuser.me</code> API (see section "Nationalities").</p> 
 		</div>
 
 
 
 
 
-		Node.js® is an open-source, cross-platform JavaScript runtime environment.
+		<p>Node.js® is an open-source, cross-platform JavaScript runtime environment.</p>
 		<h1>Documentations</h1>
 		<ul>
 			<li><a href="https://nodejs.org/en/">https://nodejs.org/en/</a></li>
@@ -90,35 +89,7 @@ const measureDoingSomething = () => {
 measureDoingSomething();	
 </code></pre>
 
-		<H2>A simple http server (from nodejs.com)</H2>
-		Once we have installed Node.js, let's build our first web server. Create a file named app.js containing the following contents:
-<pre><code class="js">
-//This code first includes the Node.js http module in its standard library.
-const http = require('http'); 
-
-const hostname = '127.0.0.1';
-const port = 3000;
-
-//The createServer() method of the http module creates a new HTTP server and returns it.
-/*
-Whenever a new request is received, the request event is called, providing two objects: a request (an http.IncomingMessage object) and a response (an http.ServerResponse object).
-*/
-const server = http.createServer((req, res) => { //req and res are JS objects  containing the http request and response
-  res.statusCode = 200; //(return) status code is a field of the http response object
-  res.setHeader('Content-Type', 'text/plain'); // is the set of headers
-  res.end('Hello World'); // the end methods pack the response and send it to the client.
-});
-
-//The server is set to listen on the specified port and host name. 
-//When the server is ready, the callback function is called, 
-// in this case informing us that the server is running.
-server.listen(port, hostname, () => {
-  console.log(`Server running at http://${hostname}:${port}/`);
-});
-</code></pre>
-Now, run your web server typing <code>node app.js</code> command in your terminal. 
-Visit <code>http://localhost:3000</code> and you will see a message saying "Hello World".
-
+		
 
 	<H2>The Node Package Manager (npm)</H2>
 <p>Next to Node itself, npm is the most important tool for working with Node applications. npm is used to fetch any packages (JavaScript libraries) that an application needs for development, testing, and/or production, and may also be used to run tests and tools used in the development process.</p>
@@ -132,8 +103,8 @@ Visit <code>http://localhost:3000</code> and you will see a message saying "Hell
 <ol>
 <li>First create a directory for your new application and navigate into it:
 <pre><code class="bash">
-[user@ENSSAT]$ mkdir myapp
-[user@ENSSAT]$ cd myapp
+[user@ENSSAT]$ mkdir ZeApp
+[user@ENSSAT]$ cd ZeApp
 </code></pre></li>
 <li>Use the npm init command to create a package.json file for your application. This command prompts you for a number of things, including the name and version of your application and the name of the initial entry point file (by default this is index.js). For now, just accept the defaults:
 <pre><code class="bash">
@@ -141,7 +112,7 @@ Visit <code>http://localhost:3000</code> and you will see a message saying "Hell
 </code></pre>
 If you display the package.json file (cat package.json), you will see the defaults that you accepted, ending with the license.
 </li>
-<li>Now install the <code>chalk</code> package in the <code>myapp</code> directory and save it in the dependencies list of your package.json file:
+<li>Now install the <code>chalk</code> package in the <code>ZeApp</code> directory and save it in the dependencies list of your package.json file:
 <pre><code class="bash">
 [user@ENSSAT]$ npm install chalk@4
 </code></pre>
@@ -166,6 +137,7 @@ console.log(chalk.yellow('hi!'));
 	<p>Calling <code>require()</code> always use the CommonJS module loader. Calling <code>import()</code> always use the ECMAScript module loader. Chances are you will encounter both types.</p>
 
 	<h4>CommonJS modules </h4>
+	<p>We will use CommonJS module calls in the following of the course.</p>
 	<p>CommonJS modules are the original way to package JavaScript code for Node.js. Node.js also supports the ECMAScript modules standard (since v8.5, standard since v13.2.0) used by browsers and other JavaScript runtimes.</p>
 	<p>In Node.js, each file is treated as a separate module. For example, consider a file named foo.js:
 	<pre><code class="js">
@@ -239,7 +211,7 @@ console.log(chalk.yellow('hi!'));
 			if (!(date instanceof Date)) { 
 				date = new Date(date); 
 			} 
-			return WEEKDAY[date.getWeekday()]; 
+			return WEEKDAY[date.getDay()]; 
 		}
 	</code></pre> 
 	<pre><code class="js">
@@ -271,7 +243,12 @@ console.log(chalk.yellow('hi!'));
 		}
 }	
 </code></pre>
+You will call the <code>prod</code> script with the following:
+<pre><code class="bash">
+[user@ENSSAT]$ npm run prod
+</code></pre>	
 	</p>
+
 	
 	<h2>The development process</h2>
 	If a dependency is only used during development, you should  save it as a "development dependency" (so that your package users don't have to install it in production). 
@@ -284,7 +261,7 @@ console.log(chalk.yellow('hi!'));
 </code></pre>
 	Run the application using the nodemon command followed by the application's file name:
 <pre><code class="bash">
-[user@ENSSAT]$ nodemon app.js
+[user@ENSSAT]$ ./node-modules/.bin/nodemon app.js
 </code></pre>
 	or, add a script into you <code>package.json</code> file.
 <pre><code class="json">
@@ -296,6 +273,7 @@ console.log(chalk.yellow('hi!'));
 }
 </code></pre>
 	and run <code>[user@ENSSAT]$ npm run nodemon</code>
+
 	<h3>the jest package</h3>
 	<a href="https://jestjs.io/">Jest</a> is a delightful JavaScript Testing Framework with a focus on simplicity.
 <pre><code class="bash">
@@ -311,6 +289,11 @@ console.log(chalk.yellow('hi!'));
 		}
 }
 </code></pre>
+The following command will launch all test files (files ending with <code>test.js</code>):
+<pre><code class="bash">
+[user@ENSSAT]$ npm test
+</code></pre>
+
 	Let's get started by writing a test for a hypothetical function that adds two numbers. First, create a <code>sum.js</code> file:
 <pre><code class="js">
 function sum(a, b) {
@@ -330,6 +313,37 @@ test('adds 1 + 2 to equal 3', () => {
 	PASS  ./sum.test.js
 	✓ adds 1 + 2 to equal 3 (5ms)
 </code></pre>
+Here is an other example, more useful for your version of "ZeApp". First, the <code>countryCode.js</code> file:
+<pre><code class="js">
+/** the set of expected country code values */
+const _countryCodeArray = Array.of("AU", "BR", "CA", "CH", "DE", "DK", "ES", "FI", "FR", "GB", "IE", "IN", "IR", "MX", "NL", "NO", "NZ", "RS", "TR", "UA", "US");
+/**
+ * Checks if the string is a country code
+ * @param {string} aString - a country code (2 letters, lowerCase or upperCase)
+ * @return {boolean} is the string a country code? 
+ */
+function isCountryCode(aString){
+  if(_countryCodeArray.indexOf(aString.toLocaleUpperCase()) === -1){
+    return false;
+  }
+  return true;
+}
+module.exports = isCountryCode;
+</code></pre>
+and then, the <code>countryCode.test.js</code> file :
+<pre><code class="js">
+const isCountryCode = require('./countryCode.js');
+test('true Country Code UpperCase', () => {
+  expect(isCountryCode("FR")).toBe(true);
+});
+test('true Country Code LowerCase', () => {
+  expect(isCountryCode("fr")).toBe(true);
+});
+test('false Country Code LowerCase', () => {
+  expect(isCountryCode("Chuck Norris")).toBe(false);
+});
+</code></pre>
+
 
 	<h3>the eslint package</h3>
  To use the popular JavaScript Linting tool <a href="https://eslint.org/">ESLint</a> you would call npm as shown:
@@ -337,6 +351,25 @@ test('adds 1 + 2 to equal 3', () => {
 [user@ENSSAT]$ npm install eslint --save-dev
 </code></pre>
  "Linters" are tools that perform static analysis on software in order to recognize and report adherence/non-adherence to some set of coding best practice.
+
+ <h3>the JSDoc package</h3>
+JSDoc is an API documentation generator for JavaScript.
+To install it, run:
+<pre><code class="bash">
+user@ENSSAT]$ npm install --save-dev jsdoc
+</code></pre>
+then add this script to you <code>package.json</code> file :
+<pre><code class="js">
+	...
+	"scripts": {
+		...
+		"jsdoc":"jsdoc zeApp.js -d doc"
+  },...
+</code></pre>
+The following command will generate your doc into the <code>doc</code> directory :
+<pre><code class="bash">
+user@ENSSAT]$ npm run jsdoc
+</code></pre>
 
 <h2>Deliver</h2>
 The Node Package Managment system can be used to ship your work. Just create an archive with your complete code but the <code>node-modules</code> directory and deliver it. The recipient just has to install it :
@@ -346,9 +379,80 @@ added 164 packages from 583 contributors in 4.781s
 found 0 vulnerabilities	
 </code></pre>  
 
-<h2>Nice to Have</h2>
+<h2>Nice to Have (CLI)</h2>
+<h3>the node-fetch@2 package</h3>
+node-fetch is the server side version of the fetch browser API.
+<p>Here is how to install it
+<pre><code class="bash">
+[user@ENSSAT]$ npm install node-fetch@2
+</code></pre>
+And here is a snippet that may be usefull for "ZeApp":
+<pre><code class="js">
+function setRandomUserURL(country, number){
+	return `https://randomuser.me/api/?nat=${country}&results=${number}`;
+}
+fetch(setRandomUserURL(country, number))
+	.then((response)=>{
+    return response.json()
+  })
+	.then((data)=>{
+		for(const user of data.results){
+      arrayOfLocations.push(user.location);
+		}
+	})
+	.catch((err)=>{verboseOutput(`OUPS ${err}`)})
+</code></pre>
+</p> 
+
+<h3>the yargs package</h3>
+Yargs helps you build interactive command line tools, by parsing arguments and generating an elegant user interface.
+<p>Here is how to install it
+<pre><code class="bash">
+[user@ENSSAT]$ npm install yargs
+</code></pre>
+And here is a snippet that may be usefull for "ZeApp":
+<pre><code class="js">
+const argv = require('yargs').options({
+      'n': {
+        alias: 'number',
+        default: 10,
+        describe: 'number of addresses to retrieve',
+        type: 'number'
+      },
+      'c': {
+        alias: 'country',
+        default: 'FR',
+        describe: 'specifies a country (AU, BR, CA, CH, DE, DK, ES, FI, FR, GB, IE, IN, IR, MX, NL, NO, NZ, RS, TR, UA, US)',
+        type: 'string'
+      },
+      'v': {
+        alias: 'verbose',
+        default: 'false',
+        describe: 'verbose version',
+        type: 'boolean'
+      }
+    })
+	.check((argv)=>{
+		const tmp = argv.number;
+  	if(tmp > 100 || tmp < 1){
+  		throw new Error("please, specify number between 1 and 100")
+  	}
+    if(!isCountryCode(argv.country)){
+      throw new Error("please, specify a proper country code")
+    }
+    return true;
+  })
+  .help('h')
+  .alias('h', 'help').argv;
+</code></pre>
+</p>
 <h3>the Progress package</h3>
-	Progress is an awesome package to create a progress bar in the console. Install it using npm install progress<br>
+	Progress is an awesome package to create a progress bar in the console. 
+	To install it, run   
+<pre><code class="bash">
+[user@ENSSAT]$ npm install progress
+</code></pre>
+	<br>
 	This snippet creates a 10-step progress bar, and every 100ms one step is completed. When the bar completes we clear the interval.
 <pre><code class="js">
 const ProgressBar = require('progress');
@@ -360,6 +464,48 @@ const timer = setInterval(() => {
 		}
 }, 100);	
 </code></pre>
+<h3>the Boxen package</h3>
+Create boxes in the terminal
+To install it, run   
+<pre><code class="bash">
+[user@ENSSAT]$ npm install boxen
+</code></pre>
+	<br>
+	This snippet creates a labeled box
+<pre><code class="js">
+const boxen = require("boxen");
+console.log(boxen('unicorns love rainbows', {title: 'magical', titleAlignment: 'center'}));
+</code></pre>
+
+
+<H2>A simple http server (from nodejs.com)</H2>
+		Let's build our first web server. Create a file named app.js containing the following contents:
+<pre><code class="js">
+//This code first includes the Node.js http module in its standard library.
+const http = require('http'); 
+
+const hostname = '127.0.0.1';
+const port = 3000;
+
+//The createServer() method of the http module creates a new HTTP server and returns it.
+/*
+Whenever a new request is received, the request event is called, providing two objects: a request (an http.IncomingMessage object) and a response (an http.ServerResponse object).
+*/
+const server = http.createServer((req, res) => { //req and res are JS objects  containing the http request and response
+  res.statusCode = 200; //(return) status code is a field of the http response object
+  res.setHeader('Content-Type', 'text/plain'); // is the set of headers
+  res.end('Hello World'); // the end methods pack the response and send it to the client.
+});
+
+//The server is set to listen on the specified port and host name. 
+//When the server is ready, the callback function is called, 
+// in this case informing us that the server is running.
+server.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
+});
+</code></pre>
+Now, run your web server typing <code>node app.js</code> command in your terminal. 
+Visit <code>http://localhost:3000</code> and you will see a message saying "Hello World".
 
 
 	</body>
