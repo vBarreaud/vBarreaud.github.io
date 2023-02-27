@@ -1,9 +1,95 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title></title>
+		<title>A basic HTTP Server using Express on NodeJS</title>
+		<link rel="stylesheet"
+      		href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+		<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+		<script>
+  			hljs.initHighlightingOnLoad();
+		</script>
+		<style>
+			.todo{
+				border:solid black;
+				background-color: yellow;
+			}
+		</style>
 	</head>
 	<body>
-		
+		<div class="todo">
+			The goal of this lab session is to create a time managment webapp that logs tasks. 
+			<p>Here are the use cases : 
+				<ol>
+					<li>A user accesses a page to fill up a form with his name and the name of the task he is working on. (example : "Snake Plissken" / "reviewing the last maths exam"). </li>
+					<li>A user accesses a page that lists all the names and tasks with their dates and time. </li>
+					<li>A user accesses a page and click on a button to destroy the log file.</li>
+				</ol>
+			</p>   
+			<p>You will use the following technologies (a bootstrap application is available <a href="https://vbarreaud.github.io/Node_TP_2/SampleEJSServer.zip">here</a>)
+				<ul>
+					<li>the Express package to create a simple http server.</li>
+					<li>All the pages will follow the same css (which is a static file).</li>
+					<li>the EJS Template Engine to create your views.</li>
+					<li>the FS (File System) module to store and retrieve.  </li>
+				</ul>
+			 </p>
+		</div>
+
+		<h2>The HTML Form Element and the HTTP dialog</h2>
+		<p>First, you have to comprehend the mecanism behind the form submission. It involves the <a href="https://developer.mozilla.org/en-US/docs/Learn/Forms/Your_first_form">actual HTML Form Element</a> and the subsequent <a href="https://developer.mozilla.org/en-US/docs/Learn/Forms/Sending_and_retrieving_form_data">HTTP dialog</a> with the server.</p>
+
+		<h2>Express</h2>
+		<p>Express is a minimal and flexible Node.js web application framework that provides a robust set of features for web and mobile applications.</p>
+		<p>All the documentation is on <a href="https://expressjs.com/">the dedicated expressJs page</a>.
+			You want to take a look at the <a href="https://expressjs.com/en/starter/basic-routing.html">basic routing section</a> for a start.
+		</p>
+		<p>Piece of advise : stay away from "Express generator" for now (for all the dureation of our labs, in fact). It is no use for your learning curve (quite the opposite, in fact).</p>
+		<p>You may want to read more about the <a href="https://www.digitalocean.com/community/tutorials/nodejs-req-object-in-expressjs">Request Object in Express</a>.</p>
+		<p>You will need to retrieve parameters from the body of the POST request. I advise you to use the the <a hraf="https://www.npmjs.com/package/body-parser">body-parser package</a> to do so. Minimum code is as follow (let us say that the form contains the "user_name" variable) :
+<pre><code class="js">
+const express = require('express')
+const bodyParser = require('body-parser')
+
+const app = express()
+
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
+
+app.post('/submitForm',(req, res) => {
+  console.log('passed user_name is : '+req.body.user_name);
+  res.end();
+})
+...
+</code></pre>			
+
+		</p>
+
+		<h2>Serving static files with Express</h2>
+		<p>This <a href="https://www.digitalocean.com/community/tutorials/nodejs-express-basics">tutorial</a> will explain the structure of the given bootstrap app and how to identify a (public) directory to serve static files from. 
+
+		<h2>EJS</h2>
+		<p>The <a href="https://expressjs.com/en/guide/using-template-engines.html">"Using template engines with Express"</a> section of the ExpressJS site explains how to use the PUG template engine with Express.  </p>
+		<p>Unfortunately, I want you to use the EJS template engine because of it's simple syntax, closed to JS. You will find a how to on   <a href="https://www.digitalocean.com/community/tutorials/how-to-use-ejs-to-template-your-node-application">digtalocean</a>.</p>
+
+		<h2>Node FS</h2>
+		<p>Node FS Module provides an API to interact with File System and to perform some IO Operations like create file, read File, delete file, update file etc. Node JS “fs”  comes with basic Node JS Platform. There is nothing to do to set it up.</p>
+		<p>As describded <a href="https://www.digitalocean.com/community/tutorials/node-fs-js-create-file-read-write">here</a>, the minimal usage of this module is as follow :
+			<pre><code class="js">
+/**
+ * Node FS Example
+ * Node JS Write to File
+ */
+var fs = require("fs");
+
+var writeStream = fs.createWriteStream("JournalDEV.txt");
+writeStream.write("Hi, JournalDEV Users. ");
+writeStream.write("Thank You.");
+writeStream.end();
+			</code></pre>
+
+
 	</body>
 </html>
