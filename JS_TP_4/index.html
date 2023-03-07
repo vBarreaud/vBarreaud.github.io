@@ -2,17 +2,45 @@
 <html> 
 <head> 
 
-<!-- Responsive -->
 <meta charset="utf-8"> 
-<meta name="viewport" content="width=device-width, initial-scale=1"> 
-<meta http-equiv="X-UA-Compatible" content="ie=edge"> 
 
-<meta rel="stylesheet" media="screen and (max-width: 1280px)" href="petiteResolution.css"/>
+<link rel="stylesheet"
+      href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+    <script>
+        hljs.initHighlightingOnLoad();
+    </script>
+    <style>
+      .todo{
+        border:solid black;
+        background-color: yellow;
+      }
+    </style>
+
+
 <!-- Title -->
 <title>WebWorkers</title> 
 </head> 
 
 <body> 
+  <div class="todo">
+      <p>The goal of this lab is to create a web worker that will produce random 2D coordinates at random time (with mean time = 1sec). The webpage should display a red spot at those coordinates.
+  </p>
+  <p>
+  Then, create 10 web workers that will produce random 2D coordinates at random time (with mean time = 1sec). The webpage should display a  spot at those coordinates with a different color for each web worker.</p> 
+  <p>You will need to ... 
+    <ol>
+      <li> ... install a local web server handling https.</li>
+      <li> ... create a simple html page (<code class="js">index.html</code>) with a canvas.</li>
+      <li> ... call a js script (<code class="js">main.js</code>) in wich the creation of the webworker, the message passing and the display of the coordinates on the canvas occurs.  
+        <li> ... create the web worker (<code class="js">ww_2Dcoordinates.js</code>) that will produce the coordinates</li>
+        <li>... debug the whole thing!</li>  
+    </ol>
+  </p>
+    </div>
+
+
+    <h2>Sample code</h2>
   <p>
   Here is a sample code for using a <a href="https://developer.mozilla.org/fr/docs/Web/API/Web_Workers_API/Utilisation_des_web_workers" >Web Worker</a>. In short, Web Workers are a simple means for web content to run scripts in background threads. 
 </p>
@@ -22,9 +50,6 @@
 <p>
   Notice that web workers have workspace of their own. They cannot access directly the DOM neither. In order to pass parameters to and from the web worker, a messaging mecanism is used. 
 </p>
-
-
-
 	 <form>
         <div>
           <label for="number1">Multiply number 1: </label>    
@@ -39,13 +64,82 @@
       <p class="result">Result: 0</p>
 
   <script src="main.js"></script>
+  <p>Here are the two js files used to do the magic : <a href="main.js">main.js</a> and <a href="worker.js">worker.js</a>.
+<pre><code class="js">
+const first = document.querySelector('#number1');
+const second = document.querySelector('#number2');
 
-  <h1>What do I expect from you? (ask for a live demo)</h1>
-  <p>
-  Create a web worker that will produce random 2D coordinates at random time (with mean time = 1sec). The webpage should display a red spot at those coordinates.
+const result = document.querySelector('.result');
+
+if (window.Worker) {
+  const myWorker = new Worker("worker.js");
+
+  first.onchange = function() {
+    myWorker.postMessage([first.value, second.value]); // sending message to a specific worker
+    console.log('Message posted to worker');
+  }
+
+  second.onchange = function() {
+    myWorker.postMessage([first.value, second.value]);
+    console.log('Message posted to worker');
+  }
+
+  // alt : myWorker.addEventListener("message", function(messageEvent){... 
+  myWorker.onmessage = function(e) { // receiving a message
+    result.textContent = e.data;
+    console.log('Message received from worker');
+  }
+} else {
+  console.log('Your browser doesn\'t support web workers.')
+}
+</code></pre>
+
+<pre><code class="js">
+  onmessage = function(e) {
+  console.log('Worker: Message received from main script');
+  const result = parseInt(e.data[0]) * parseInt(e.data[1]);
+  if (isNaN(result)) {
+    postMessage('Please write two numbers');
+  } else {
+    const workerResult = 'Result: ' + result;
+    console.log('Worker: Posting message back to main script');
+    // prefered : self.postMessage(workerResult); 
+    // self get the current global scope (do not use "window")
+    postMessage(workerResult);
+  }
+}
+  </code></pre>
+
   </p>
-  <p>
-  Then, create 10 web workers that will produce random 2D coordinates at random time (with mean time = 1sec). The webpage should display a  spot at those coordinates with a different color for each web worker. You must used Object Oriented Programming.
-</p>
+  <p>More on <a href="https://developer.mozilla.org/en-US/docs/Web/API/Web_Workers_API/Using_web_workers">MDN page</a></p>
+
+
+
+
+  
+  <h2>WebWorkers work on https</h2>
+  <p>This page and attached webworker run on your browser but are served by a https server (a github webpage). This is <em>production</em> environment. At <em>development</em> time, you may need to use a local https server. For instance, you may use the node-based <code>http-server</code> server along with certificates provided by the <code>mkcert</code> tool.</p>
+  <p>mkcert is a simple tool for making locally-trusted development certificates. It requires no configuration. 
+    <ol>
+      <li>Install mkcert as indicated in <a href="https://github.com/FiloSottile/mkcert#installation">its GitHub page</a>. </li>
+      <li>Run <code class="bash">mkcert -install</code> to install a local CA (Certification authority)</li>
+      <li>cd to the website root</li>
+      <li>Run this command that generated certificated for our server: <code class="bash">mkcert localhost 127.0.0.1 ::1</code>. It will create two pem files. </li>
+  </ol>
+    </p>Install npm package http-server globally if not done already with : <code class="bash">npm i -g http-server</code>.
+    <p>
+      <p>Run the server in SSL mode: <code class="bash">http-server -S -o -C "localhost+2.pem" -K "localhost+2-key.pem"</code></p>
+    </p>
+
+    <h2>Remember canvases?</h2>
+    <p>The Canvas API provides a means for drawing graphics via JavaScript and the HTML canvas element. Among other things, it can be used for animation, game graphics, data visualization, photo manipulation, and real-time video processing.</p>
+
+    <p>The Canvas API largely focuses on <a href="https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D">2D graphics</a>. The WebGL API, which also uses the canvas element, draws hardware-accelerated 2D and 3D graphics.</p>
+
+
+
+    <h2>Towards Profressive Web App</h2>
+    You may wan't to ta ke a look at the <a href="https://pwa-workshop.js.org/">pwa-workshop.js.org</a> web site for more readings.
+
 </body>
 </html>
