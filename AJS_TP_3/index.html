@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+    <head>
+    <title>Dessin de formes</title>
+    <script type="module" src="./scripts/main.js">/* l'attribut "module" est obligatoire pour pouvoir faire des imports de module.*/</script>
+    <style>
+        #SVG_id {
+        border: 1px solid black;
+        }
+        </style>
+</head>
+<body>
+    <svg id="SVG_id" width="800" height="800">
+        <circle cx="400" cy="400" r="10" fill="blue"/>
+    </svg>
+    <button id="playPauseBtn_id">Play</button>
+
+    <section>
+        <h2>Advanced JS (ES6): classes</h2>
+        <p>L'objectif de ce TP est d'afficher un groupe de formes simples en SVG. Ces formes sont représentés (centre, forme, couleur, trajectoire ) par des instances de classes.</p>
+        
+        <h3>Les classes d'éléments géométriques et autres outils</h3>
+        <p>La représentation des positions en SVG se fait selon des axes X et Y orientés depuis le coin supérieur gauche vers la droite (X) et vers le bas (Y).</p>
+        <p>Créez une classe <em>Coordinates</em> qui permet de stocker les coordonnées d'un point dans cette représentation et de les convertir dans un repère cartésien placé au centre de l'élément SVG. </p>
+        <p>Créez également une classe <em>BoundingBox</em> qui représente le rectangle englobant une forme géométrique. Son constructeur prend les coordonnées du point supérieur gauche et du coin inférieur droit. On peut alors définir un centre grâce à une méthode.</p>
+        <p>Créez enfin une classe <em>Color</em> dont le constructeur ne prend aucune valeur mais détermine un triplet Rouge/Vert/Bleu à passer aux formes.</p>
+        <p>Afin d'organiser le code, ces classes seront regroupées dans un module.</p>
+
+        <h3>Les classes de formes géométriques</h3>
+        <p>Ces formes pourront être des rectangles, des elipses ou des polygones. Toutes les formes hériteront d'une même classe générique <em>Shape</em>.</p>
+        <p>Les formes géométriques s'inscrivent toutes dans une <em>BoundingBox</em> et ont une <em>Color</em>. </p>
+        <p>Afin d'organiser le code, les classes de formes seront regroupées dans un module. Ce module n'exportera pas la classe générique.</p>
+
+        <h3>Les classes de trajectoires</h3>
+        <p>Les formes géométriques seront animées : elles suivront des trajectoires. Les trajectoires pourront être linéaires, balistiques, élastiques ... et hériteront d'une classe générique.</p>
+        <p>Afin d'organiser le code, les classes de trajectoires seront regroupées dans un module.</p>
+
+        <h3>Les objets animés</h3>
+        <p>Créez une classe permettant de générer des objets animés. Les objets animés sont des objets qui ont pour attribut une forme géométrique et une trajectoire. </p>
+        <p>Dans le script principal, un nombre aléatoire d'objets animés seront générés et stockés dans un <em>Set</em>. Des boutons permettront de lancer et suspendre l'animation.</p>
+
+
+    </section>
+</body>
+</html>
