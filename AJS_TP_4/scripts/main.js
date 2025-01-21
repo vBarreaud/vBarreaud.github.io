@@ -4,34 +4,17 @@ import {fetch2numbers} from "./modules/fetch2numbers.js"
 document.addEventListener("DOMContentLoaded", init);
 
 
-function doItRight(){
-    fetch2numbers()
-    .then(([...args])=>{
-        console.log(`values are : `)
-        for(const val of args){
-            console.log(`... ${val}`)
-        }
-    })
-    .catch( (err) => {
-        if(err.name == 'Fetch2NumbersH2G2Error'){
-            console.log('One again');
-            doItRight();
-        } else {
-            throw err;
-        }
-
-    } )
-
-
-}
 
 
 
 
 function init(){
-    doItRight();
+    // 
+    fetch2numbers()
 
 
+
+    //
     const first = document.querySelector('#number1');
     const second = document.querySelector('#number2');
 
@@ -51,8 +34,9 @@ function init(){
         }
 
         myWorker.onmessage = function(e) {
-            if (e.data.error) {
+            if (e.data.error) {//on repère que le message issu du worker est en fait une remontée d'erreur.
                 console.log('Error from Worker:', e.data.error);
+                // on peut éventuellement faire un throw ici.
               } else {
                 result.textContent = e.data;
                 console.log('Message received from worker');
@@ -60,7 +44,7 @@ function init(){
         }
 
         myWorker.onerror = function(err){
-            console.error('Worker error:', e.message);
+            console.error('Worker error:', e.message); //une erreur dans le cycle de vie du worker est survenue.
         }
 
 

@@ -4,16 +4,91 @@
   <meta charset="UTF-8">
   <title>Démonstration sur Gestion des exceptions asynchrones et Web Workers</title>
   
+  <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/styles/default.min.css">
+  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/11.7.0/highlight.min.js"></script>
+  <script>
+      hljs.initHighlightingOnLoad();
+  </script>
+  
   <script type="module" src="./scripts/main.js"></script>
 
 </head>
 
 <body>
-  
+  <section>
+    <h2>Objectifs</h2>
+    <p>Dans ce TP, nous allons travailler sur la gestion des Exceptions en JS et particulièrement dans le cas asynchrone.</p>
+    <p>Dans le cas synchrone, la gestion se fait en englobant le code susceptible de lancer une exception dans un bloc try/catch. 
+      <pre><code class="js">
+        try {
+          throw new Error("Oups !");
+        } catch (e) {
+          console.log(e.name + " : " + e.message);
+        }
+      </code></pre>
+      Il est possible de faire une gestion diférenciée selon le type d'erreur :
+      <pre><code class="js">
+        try {
+          toto.truc();
+        } catch (e) {
+          if (e instanceof EvalError) {
+            console.error(e.name + " : " + e.message);
+          } else if (e instanceof RangeError) {
+            console.error(e.name + " : " + e.message);
+          }
+          // ... etc
+          else {
+            // Si aucun cas ne correspond, on laisse l'erreur
+            // non-gérée
+            throw e; //Bonne pratique de relancer une exception non-gérée pour une gestion au plus haut niveau.
+          }
+        }
+      </code></pre>
+      Enfin, la clause finally contient les instructions à exécuter après que les instructions du bloc try et éventuellement celles de la clause catch aient été exécutées mais avant que les instructions suivant l'instruction try soient exécutées.
+      <pre><code class="js">
+        ouvrirMonFichier();
+        try {
+          // on utilise une ressource
+          écrireDansMonFichier(mesDonnées);
+        } finally {
+          fermerMonFichier(); // on ferme toujours la ressource
+        }
+      </code></pre>
+      Pour plus d'informations, <a href="https://developer.mozilla.org/fr/docs/Web/JavaScript/Reference/Statements/try...catch">voir cette page MDN</a>.
+     
+    </p>
+
+</section>
+
+
   <section>
     <h2>Advanced JS (ES6): Exceptions handling</h2>
-
-
+    Dans ce premier exercice, on vous demande d'utiliser le mystérieux module fetch2numbers qui renvoie un tableaux de 2 entiers relatifs. 
+    Ce module peut déclencher 2 types d'erreurs étendant la classe <code>Error</code> et  dont on donne les valeurs de la propriété <code>name</code>:
+    <ul>
+      <li>Fetch2NumbersRequestError : cette erreur est liée au dialogue HTTP lancé par le module.</li>
+      <li>Fetch2NumbersH2G2Error : cette erreur est arbitraire.</li>
+    </ul>
+    Votre travail est 
+    <ol>
+      <li>d'appeler la fonction <b>asynchrone</b> <code>fetch2numbers()</code> exposée par le module, </li>
+      <li>de récupérer les deux nombres retourné,</li>
+      <li>de les diviser et d'afficher l'opération et le résultat dans la <code>div</code> d'id "result" ci-dessous</li>
+    </ol>
+    Cas d'erreur : 
+    <ul>
+      <li>
+        En cas d'Exception <code>Fetch2NumbersH2G2Error</code>, afficher l'erreur dans la div <code>myConsole</code> et relancer l'opération.
+      </li>
+      <li>
+        En cas d'Exception <code>Fetch2NumbersRequestError</code>, afficher l'erreur dans la div <code>myConsole</code> et arrêter l'exécution.
+      </li>
+      <li>
+        En cas d'erreur dans votre division, afficher l'erreur dans la div <code>myConsole</code> et relancer l'opération.
+      </li>
+    </ul>
+    
+  
   <fieldset>
     <legend>Divisions aléatoires</legend>
       <div id="result">
@@ -27,8 +102,17 @@
   <section>
 
   <section>
-    <h2>Advanced JS (ES6): classes</h2>
-
+    <h2>Advanced JS (ES6): WebWorkers</h2>
+    <p> Web Workers sont un mécanisme grâce auquel les instructions d'un script peuvent être exécutés dans un thread en arrière-plan séparé du thread d'exécution principal d'une application web. Cela a pour avantage qu'un traitement laborieux peut être réalisé dans un thread séparé, permettant au thread principal (généralement l'interface utilisateur) de fonctionner sans blocage ni ralentissement.
+      Un WebWorker est lancé depuis le thread principal et peut communiquer avec celui-ci par des echanges de messages. 
+      Une exception lancée dans un WebWorker pourrait être lancée et rattrapée dans le worker. 
+      Pour remonter une erreur jusqu'au processus père, on peut créer un message spécifique interprété comme une erreur dans le code du père.
+    </p>
+    <p>Dans cet exercice, on vous demande de reproduire le comportement du module fetch2numbers dans un worker. Ce worker générera 2 entiers relatifs à intervals aléatoires et lancera une erreur vers le père dès que l'un des nombre sera égale à ... 42.
+      Pour cela, vous pourrez vous inspirer du code de la calculatrice suivante.
+    </p>
+    
+    
     <fieldset>
     <legend>Multiplication</legend>
   <div class="controls" tabindex="0" ">
