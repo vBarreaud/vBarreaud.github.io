@@ -1,1 +1,50 @@
-function _0x2900(){const _0x84245c=['name','shift','245ByXEFA','Fetch2NumbersH2G2Error','4418582LeBJLU','4178526TxjYEE','34qXcZaa','6033232WJVvbF','no-cors','344316RTtIKP','460ExHSOb','202158ebDdpG','5887504BnpqYP','split','9908272hZBbWN','3380442AyegQx','22450qiQeye','356751eSVQyA','179PIHpCO','64RYZvYI','14618oUTJJr','push','catch','7497hDwWZF','status','then','10255iUQrct','Don\x27t\x20talk\x20to\x20me\x20about\x20life!','text'];_0x2900=function(){return _0x84245c;};return _0x2900();}(function(_0x44f679,_0x4d0c9d){const _0x36bfa2=_0x534c,_0x4dbee0=_0x44f679();while(!![]){try{const _0x2cef88=parseInt(_0x36bfa2(0x90))/0x1*(parseInt(_0x36bfa2(0x99))/0x2)+parseInt(_0x36bfa2(0x98))/0x3+parseInt(_0x36bfa2(0x82))/0x4+parseInt(_0x36bfa2(0x95))/0x5*(parseInt(_0x36bfa2(0x81))/0x6)+-parseInt(_0x36bfa2(0x97))/0x7+-parseInt(_0x36bfa2(0x84))/0x8+-parseInt(_0x36bfa2(0x87))/0x9*(parseInt(_0x36bfa2(0x9d))/0xa);if(_0x2cef88===_0x4d0c9d)break;else _0x4dbee0['push'](_0x4dbee0['shift']());}catch(_0x41cbd3){_0x4dbee0['push'](_0x4dbee0['shift']());}}}(_0x2900,0xf35f8));class Fetch2NumbersRequestError extends Error{constructor(_0x5b1da8,_0xe837fc){const _0x198386=_0x534c;super(_0x5b1da8,_0xe837fc),this[_0x198386(0x93)]='Fetch2NumbersRequestError';}}function _0x534c(_0x138fd2,_0x350b0c){const _0x290050=_0x2900();return _0x534c=function(_0x534c2b,_0x5674cc){_0x534c2b=_0x534c2b-0x81;let _0x36db90=_0x290050[_0x534c2b];return _0x36db90;},_0x534c(_0x138fd2,_0x350b0c);}class Fetch2NumbersH2G2Error extends Error{constructor(_0x3e7c57,_0x3f51ad){const _0x5ebaac=_0x534c;super(_0x3e7c57,_0x3f51ad),this[_0x5ebaac(0x93)]=_0x5ebaac(0x96);}}export function fetch2numbers(){const _0x168e4b=_0x534c;function _0x1961f9(_0x58bda1,_0x4aab71){const _0x1352b8=_0x10acb1();return _0x1961f9=function(_0xc7f855,_0x89c160){_0xc7f855=_0xc7f855-0x103;let _0x1f2d9e=_0x1352b8[_0xc7f855];return _0x1f2d9e;},_0x1961f9(_0x58bda1,_0x4aab71);}const _0x1e8bfd=_0x1961f9;function _0x10acb1(){const _0x57756d=_0x534c,_0x279ed7=[_0x57756d(0x8f),_0x57756d(0x9c),_0x57756d(0x8d),_0x57756d(0x89),_0x57756d(0x9a),_0x57756d(0x92),_0x57756d(0x85),_0x57756d(0x86),'https://www.random.org/integers/?num=2&min=-100&max=100&col=2&base=10&format=plain&rnd=new',_0x57756d(0x88),'4337262XMgKBx',_0x57756d(0x8a),_0x57756d(0x91),'Looks\x20like\x20there\x20was\x20a\x20problem.\x20Status\x20Code\x20Respons:\x20',_0x57756d(0x8e),'4679465rpdKlU'];return _0x10acb1=function(){return _0x279ed7;},_0x10acb1();}(function(_0x2ce65c,_0x24274d){const _0x39c240=_0x534c,_0x12d16c=_0x1961f9,_0x42b425=_0x2ce65c();while(!![]){try{const _0x55ec20=-parseInt(_0x12d16c(0x10d))/0x1*(-parseInt(_0x12d16c(0x10f))/0x2)+parseInt(_0x12d16c(0x10a))/0x3+parseInt(_0x12d16c(0x108))/0x4+-parseInt(_0x12d16c(0x103))/0x5+-parseInt(_0x12d16c(0x10e))/0x6+-parseInt(_0x12d16c(0x105))/0x7*(-parseInt(_0x12d16c(0x107))/0x8)+-parseInt(_0x12d16c(0x106))/0x9*(parseInt(_0x12d16c(0x10b))/0xa);if(_0x55ec20===_0x24274d)break;else _0x42b425['push'](_0x42b425[_0x39c240(0x94)]());}catch(_0x51a57a){_0x42b425[_0x39c240(0x8b)](_0x42b425[_0x39c240(0x94)]());}}}(_0x10acb1,0xc5492));const _0x505529=_0x1e8bfd(0x10c),_0x3571aa={'mode':_0x168e4b(0x9b)};return new Promise((_0x2c7038,_0x1a0f38)=>{const _0x56ac03=_0x168e4b,_0x1b803c=_0x1e8bfd;fetch(_0x505529)[_0x1b803c(0x104)](_0x2951e6=>{const _0x5de1b1=_0x534c,_0x2d5a79=_0x1b803c;if(_0x2951e6[_0x5de1b1(0x8e)]!==0xc8)throw new Fetch2NumbersRequestError(_0x2d5a79(0x111)+_0x2951e6[_0x2d5a79(0x112)]);return _0x2951e6[_0x2d5a79(0x109)]();})[_0x1b803c(0x104)](_0x13cdbe=>{const _0x3934ab=_0x534c,_0x283f81=_0x1b803c,_0x3ee900=_0x13cdbe[_0x3934ab(0x83)]('\x09');for(const _0x219cee of _0x3ee900){if(_0x219cee==0x2a)throw new Fetch2NumbersH2G2Error(_0x283f81(0x110));}return _0x3ee900;})[_0x56ac03(0x8f)](_0x2c7038)[_0x56ac03(0x8c)](_0x1a0f38);});}
+
+
+class Fetch2NumbersRequestError extends Error {
+    constructor(message, options) {
+      super(message, options);
+      this.name = 'Fetch2NumbersRequestError';
+    }
+  }
+
+class Fetch2NumbersH2G2Error extends Error {
+    constructor(message, options) {
+      super(message, options);
+      this.name = 'Fetch2NumbersH2G2Error';
+    }
+}
+
+
+function fetch2numbers(){
+    const uri = "https://www.random.org/integers/?num=2&min=-100&max=100&col=2&base=10&format=plain&rnd=new"
+    const options = {
+        mode:"no-cors"
+    }
+
+    return new Promise( (resolve, reject)=>{
+        fetch(uri)
+            .then(
+                (response)=>{
+                    if (response.status !== 200) {
+                        throw new Fetch2NumbersRequestError(`Looks like there was a problem. Status Code Respons: ${response.status}`);
+                    }
+                    return response.text();
+                })
+            .then(
+                (text)=>{
+                    const temp = text.split("\t");
+
+                    for(const val of temp){
+                        if(val==42) throw new Fetch2NumbersH2G2Error(`Don't talk to me about life!`)
+                    }
+                    
+                    return temp;
+                }
+            )
+            .then(resolve)
+            .catch(reject);
+        })
+}
+
+
+export {Fetch2NumbersRequestError,Fetch2NumbersH2G2Error,fetch2numbers}
