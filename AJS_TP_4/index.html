@@ -18,7 +18,7 @@
   <section>
     <h2>Objectifs</h2>
     <p>Dans ce TP, nous allons travailler sur la gestion des Exceptions en JS et particulièrement dans le cas asynchrone.</p>
-    <p>Dans le cas synchrone, la gestion se fait en englobant le code susceptible de lancer une exception dans un bloc try/catch. 
+    <p>Dans le cas synchrone, la gestion se fait en englobant le code susceptible de lancer une exception dans un bloc <code>try</code>/<code>catch</code>. 
       <pre><code class="js">
         try {
           throw new Error("Oups !");
@@ -26,7 +26,7 @@
           console.log(e.name + " : " + e.message);
         }
       </code></pre>
-      Il est possible de faire une gestion diférenciée selon le type d'erreur :
+      Il est possible de faire une gestion différenciée selon le type d'erreur :
       <pre><code class="js">
         try {
           toto.truc();
@@ -44,7 +44,9 @@
           }
         }
       </code></pre>
-      Enfin, la clause finally contient les instructions à exécuter après que les instructions du bloc try et éventuellement celles de la clause catch aient été exécutées mais avant que les instructions suivant l'instruction try soient exécutées.
+      Enfin, la clause <code>finally</code>  contient les instructions à exécuter après que les instructions du bloc <code>try</code> 
+      et éventuellement celles de la clause <code>catch</code> aient été exécutées mais avant que les instructions suivant 
+      l'instruction <code>try</code>  soient exécutées.
       <pre><code class="js">
         ouvrirMonFichier();
         try {
@@ -63,11 +65,12 @@
 
   <section>
     <h2>Advanced JS (ES6): Exceptions handling</h2>
-    Dans ce premier exercice, on vous demande d'utiliser le mystérieux module fetch2numbers qui renvoie un tableaux de 2 entiers relatifs. 
-    Ce module peut déclencher 2 types d'erreurs étendant la classe <code>Error</code> et  dont on donne les valeurs de la propriété <code>name</code>:
+    Dans ce premier exercice, on vous demande d'utiliser le mystérieux module <code>fetch2numbers</code> qui renvoie un tableaux 
+    de 2 entiers relatifs. Ce module peut déclencher 2 types d'erreurs étendant la classe <code>Error</code> 
+    et  dont on donne les valeurs de la propriété <code>name</code>:
     <ul>
-      <li>Fetch2NumbersRequestError : cette erreur est liée au dialogue HTTP lancé par le module.</li>
-      <li>Fetch2NumbersH2G2Error : cette erreur est arbitraire.</li>
+      <li><code>Fetch2NumbersRequestError</code> : cette erreur est liée au dialogue HTTP lancé par le module.</li>
+      <li><code>Fetch2NumbersH2G2Error</code> : cette erreur est arbitraire.</li>
     </ul>
     Votre travail est 
     <ol>
@@ -108,7 +111,9 @@
       Une exception lancée dans un WebWorker pourrait être lancée et rattrapée dans le worker. 
       Pour remonter une erreur jusqu'au processus père, on peut créer un message spécifique interprété comme une erreur dans le code du père.
     </p>
-    <p>Dans cet exercice, on vous demande de reproduire le comportement du module fetch2numbers dans un worker. Ce worker générera 2 entiers relatifs à intervals aléatoires et lancera une erreur vers le père dès que l'un des nombre sera égale à ... 42.
+    <p>Dans cet exercice, on vous demande de reproduire le comportement du module <code>Fetch2numbers</code> dans un worker. 
+      Ce worker générera 2 entiers relatifs à intervals aléatoires et lancera une erreur vers le père dès que l'un des nombre 
+      sera égale à ... 42.
       Pour cela, vous pourrez vous inspirer du code de la calculatrice suivante.
     </p>
     
