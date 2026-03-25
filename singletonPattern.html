@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Singleton Pattern Demo</title>
+</head>
+<body>
+    <h1>Singleton Pattern</h1>
+    <p>The Singleton pattern ensures that a class has only one instance and provides a global point of access to it.</p>
+
+    <button id="create-instance1">Create Instance 1</button>
+    <button id="create-instance2">Create Instance 2</button>
+    <button id="log-btn">Log Message</button>
+    <button id="show-logs">Show All Logs</button>
+
+    <h2>Output</h2>
+    <div id="output" style="border:1px solid #ccc; padding:8px; height:180px; overflow:auto; background:#f0f0f0;"></div>
+
+    <script>
+        // Singleton Logger
+        class Logger {
+            constructor() {
+                if (Logger.instance) {
+                    return Logger.instance;
+                }
+                this.logs = [];
+                Logger.instance = this;
+            }
+
+            log(message) {
+                this.logs.push(message);
+                this.display(message);
+            }
+
+            display(message) {
+                const output = document.getElementById('output');
+                output.innerHTML += '<p>' + message + '</p>';
+            }
+
+            getLogs() {
+                return this.logs;
+            }
+        }
+
+        let instance1, instance2;
+
+        document.getElementById('create-instance1').addEventListener('click', () => {
+            if (!instance1) {
+                instance1 = new Logger();
+                instance1.log('Instance 1 created');
+            } else {
+                instance1.log('Instance 1 already exists');
+            }
+        });
+
+        document.getElementById('create-instance2').addEventListener('click', () => {
+            if (!instance2) {
+                instance2 = new Logger();
+                instance2.log('Instance 2 created');
+                if (instance1 === instance2) {
+                    instance2.log('Instance 1 and Instance 2 are the same object!');
+                }
+            } else {
+                instance2.log('Instance 2 already exists');
+            }
+        });
+
+        document.getElementById('log-btn').addEventListener('click', () => {
+            const logger = instance1 || instance2;
+            if (logger) {
+                logger.log('Logged from instance');
+            } else {
+                const output = document.getElementById('output');
+                output.innerHTML += '<p>No instance created yet</p>';
+            }
+        });
+
+        document.getElementById('show-logs').addEventListener('click', () => {
+            const logger = instance1 || instance2;
+            if (logger) {
+                const logs = logger.getLogs();
+                logger.display('All logs: ' + logs.join(', '));
+            } else {
+                const output = document.getElementById('output');
+                output.innerHTML += '<p>No instance created yet</p>';
+            }
+        });
+    </script>
+</body>
+</html>
