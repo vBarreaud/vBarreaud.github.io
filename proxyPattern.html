@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>title</title>
+    <script>
+        window.addEventListener("DOMContentLoaded",init)
+        // 1. Nos données sources
+        const data = {
+            name: "Internaute",
+            age: 25
+        };
+
+        // 2. La fonction de mise à jour du DOM
+        const updateUI = (prop, value) => {
+            if (prop === 'name') {
+                document.getElementById('title').textContent = `Bonjour ${value} !`;
+            }
+            if (prop === 'age') {
+                document.getElementById('age-display').textContent = value;
+            }
+            console.log(`DOM mis à jour : ${prop} = ${value}`);
+        };
+
+        // 3. Création du Proxy
+        const state = new Proxy(data, {
+            set(target, prop, value) {
+                // On met à jour la valeur réelle de l'objet
+                target[prop] = value;
+                
+                // On déclenche automatiquement la mise à jour de l'interface
+                updateUI(prop, value);
+                
+                // On retourne true pour confirmer que la modification a réussi
+                return true;
+            }
+        });
+
+        function init(){
+            
+            // --- Tests et Événements ---
+
+            // Liaison des inputs vers le Proxy
+            document.getElementById('name-input').addEventListener('input', (e) => {
+                state.name = e.target.value; // Déclenche le Proxy !
+            });
+
+            document.getElementById('age-input').addEventListener('input', (e) => {
+                state.age = e.target.value; // Déclenche le Proxy !
+            });
+
+            // Initialisation manuelle
+            state.name = "Alice";
+            state.age = 30;
+
+
+        }
+
+    </script>
+</head>
+<body>
+    <div id="app">
+        <h1 id="title">Bonjour !</h1>
+        <p>Âge : <span id="age-display">0</span></p>
+  
+        <input type="text" id="name-input" placeholder="Changer le nom">
+        <input type="number" id="age-input" placeholder="Changer l'âge">
+</div>
+</body>
+</html>
