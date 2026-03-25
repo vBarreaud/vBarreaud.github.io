@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Command Pattern Demo</title>
+</head>
+<body>
+    <h1>Command Pattern</h1>
+    <p>Click action buttons to execute commands through the invoker.</p>
+
+    <button id="start-btn">Start Machine</button>
+    <button id="stop-btn">Stop Machine</button>
+    <button id="reset-btn">Reset Machine</button>
+
+    <h2>Status Log</h2>
+    <div id="command-log" style="border:1px solid #ccc; padding:8px; height:180px; overflow:auto; background:#f0f0f0;"></div>
+
+    <script>
+      // Receiver
+      class Machine {
+        start() { return 'Machine started'; }
+        stop() { return 'Machine stopped'; }
+        reset() { return 'Machine reset'; }
+      }
+
+      // Command interface
+      class Command {
+        execute() {}
+      }
+      //////////////
+      // Concrete Commands
+      class StartCommand extends Command {
+        constructor(machine) { super(); this.machine = machine; }
+        execute() { return this.machine.start(); }
+      }
+
+      class StopCommand extends Command {
+        constructor(machine) { super(); this.machine = machine; }
+        execute() { return this.machine.stop(); }
+      }
+
+      class ResetCommand extends Command {
+        constructor(machine) { super(); this.machine = machine; }
+        execute() { return this.machine.reset(); }
+      }
+      //////////////
+
+      // Invoker
+      class RemoteControl {
+        constructor() { this.history = []; }
+        setCommand(command) { this.command = command; }
+        pressButton() {
+          const result = this.command.execute();
+          this.history.push(result);
+          return result;
+        }
+        getHistory() { return this.history.slice(); }
+      }
+
+      const machine = new Machine();
+      const invoker = new RemoteControl();
+
+      const logArea = document.getElementById('command-log');
+      const appendLog = (text) => {
+        const entry = document.createElement('div');
+        entry.textContent = `[${new Date().toLocaleTimeString()}] ${text}`;
+        logArea.appendChild(entry);
+        logArea.scrollTop = logArea.scrollHeight;
+      };
+
+      /////////////////
+      // Clients
+      document.getElementById('start-btn').addEventListener('click', () => {
+        invoker.setCommand(new StartCommand(machine));
+        appendLog(invoker.pressButton());
+      });
+
+      document.getElementById('stop-btn').addEventListener('click', () => {
+        invoker.setCommand(new StopCommand(machine));
+        appendLog(invoker.pressButton());
+      });
+
+      document.getElementById('reset-btn').addEventListener('click', () => {
+        invoker.setCommand(new ResetCommand(machine));
+        appendLog(invoker.pressButton());
+      });
+      ///////////////////
+
+
+    </script>
+</body>
+</html>
