@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Observable Pattern</title>
+</head>
+<script>
+
+class Observable {
+  constructor() {
+    this.observers = [];
+  }
+
+  subscribe(func) {
+    this.observers.push(func);
+  }
+
+  unsubscribe(func) {
+    this.observers = this.observers.filter((observer) => observer !== func);
+  }
+
+  notify(data) {
+    this.observers.forEach((observer) => observer(data));
+  }
+}
+
+const uiEvents = new Observable();
+
+function formatTime() {
+  return new Date().toLocaleString();
+}
+
+function eventLogger(eventData) {
+  const log = document.getElementById('event-log');
+  const item = document.createElement('div');
+  item.textContent = `[${formatTime()}] ${eventData}`;
+  log.appendChild(item);
+  // Keep scroll at bottom
+  log.scrollTop = log.scrollHeight;
+}
+
+window.addEventListener('DOMContentLoaded', () => {
+  const btn = document.getElementById('action-btn');
+  const toggler = document.getElementById('dual-toggle');
+
+  uiEvents.subscribe(eventLogger);
+
+  btn.addEventListener('click', () => {
+    uiEvents.notify('Button clicked');
+  });
+
+  toggler.addEventListener('change', (e) => {
+    uiEvents.notify(`Switch toggled ${e.target.checked ? 'ON' : 'OFF'}`);
+  });
+});
+
+</script>
+<body>
+    <h1>Observable Pattern Demo</h1>
+
+    <button id="action-btn">Click me</button>
+
+    <label style="margin-left: 1rem;">
+      <input type="checkbox" id="dual-toggle" /> Toggle switch
+    </label>
+
+    <h2>Event Log</h2>
+    <div id="event-log" style="border: 1px solid #ccc; padding: 10px; height: 200px; overflow-y: auto; background: #f9f9f9;"></div>
+</body>
+</html>
