@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8" />
+    <title>Bad SPA</title>
+</head>
+<script>
+/*
+Le problème est que cela interfère avec le comportement normal du navigateur pour les boutons « Précédent » et « Suivant ».
+
+Du point de vue de la personne, elle a cliqué et la page a été mise à jour et cela ressemble donc à une nouvelle page. Si la personne clique sur le bouton « Précédent », elle s'attend à revenir à l'état tel qu'il était avant de cliquer sur le lien.
+
+Mais pour le navigateur, le dernier lien n'a pas chargé de nouvelle page (et donc créé de nouvelle entrée dans l'historique), et le bouton « Précédent » ramènera la personne sur la page qui était chargée avant l'ouverture de la SPA.
+*/
+
+window.addEventListener("DOMContentLoaded",init);
+
+// Gestion des boutons précédent/suivant
+window.addEventListener("popstate", (event) => {
+  // Si un état a été fourni, nous avons une page "simulée"
+  // et nous mettons à jour la page courante.
+  if (event.state) {
+    // On simule le chargement de la page précédente
+    displayContent(event.state);
+  }
+});
+
+function init(){   
+
+    document.addEventListener("click", async (event) => {
+        const creature = event.target.getAttribute("data-creature");
+        if (creature) {
+            // Empêche le chargement d'une nouvelle page
+            event.preventDefault();
+            try {
+                // Récupère le nouveau contenu
+                const response = await fetch(`creatures/${creature}.json`);
+                const json = await response.json();
+                // Met à jour la page avec le nouveau contenu
+                displayContent(json);
+                // On ajoute une nouvelle entrée à l'historique.
+                // Cela simule le chargement d'une nouvelle page.
+                history.pushState(json, "", creature);
+            } catch (err) {
+            console.error(err);
+            }
+        }
+    });
+
+    // On crée l'état au chargement de la page et on remplace l'entrée courante
+    // de l'historique avec cet état
+    const image = document.querySelector("#photo");
+    const initialState = {
+    description: document.querySelector("#description").textContent,
+    image: {
+        src: image.getAttribute("src"),
+        alt: image.getAttribute("alt"),
+    },
+    name: "Home",
+    };
+    history.replaceState(initialState, "", document.location.href);
+}
+
+function displayContent(content) {
+  document.title = `Creatures: ${content.name}`;
+
+  const description = document.querySelector("#description");
+  description.textContent = content.description;
+
+  const photo = document.querySelector("#photo");
+  photo.setAttribute("src", content.image.src);
+  photo.setAttribute("alt", content.image.alt);
+}
+
+
+
+
+</script>
+<body>
+    <div>
+        Click me : 
+        <ul>
+            <li data-creature="lion">Lion</li>
+            <li data-creature="eagle">Eagle</li>
+        </ul>
+        <span id="description"></span>
+        <img id="photo"/>
+    </div>
+</body>
+</html>
