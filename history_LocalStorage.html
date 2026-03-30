@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SPA Router - Design Patterns & Persistence</title>
+    <style>
+        :root { --primary: #2563eb; --bg: #f8fafc; }
+        body { font-family: system-ui, sans-serif; background: var(--bg); line-height: 1.5; padding: 2rem; }
+        nav { background: white; padding: 1rem; border-radius: 8px; shadow: 0 1px 3px rgba(0,0,0,0.1); margin-bottom: 2rem; }
+        nav a { color: #475569; text-decoration: none; margin-right: 1.5rem; font-weight: 500; }
+        nav a:hover { color: var(--primary); }
+        #app { background: white; padding: 2rem; border-radius: 8px; min-height: 200px; }
+        .status { font-size: 0.8rem; color: #94a3b8; margin-top: 1rem; }
+    </style>
+</head>
+<body>
+
+    <nav id="main-nav">
+        <a href="/" data-link>Accueil</a>
+        <a href="/produits" data-link>Produits</a>
+        <a href="/contact" data-link>Contact</a>
+    </nav>
+
+    <main id="app">
+        </main>
+
+    <div class="status" id="status-bar"></div>
+
+    <script>
+        /**
+         * 1. STORAGE MANAGER (Pattern Memento / State)
+         * Gère la persistance des données.
+         */
+        const StorageManager = {
+            KEY: 'spa_last_path',
+            savePath(path) {
+                localStorage.setItem(this.KEY, path);
+                document.getElementById('status-bar').innerText = `Sauvegardé en local : ${path}`;
+            },
+            getPath() {
+                return localStorage.getItem(this.KEY);
+            }
+        };
+
+        /**
+         * 2. ROUTER (Pattern Singleton & Command)
+         * Centralise la logique de navigation.
+         */
+        const Router = {
+            routes: {
+                '/': { title: 'Accueil', html: '<h1>🏠 Bienvenue</h1><p>Ceci est la page d\'accueil de notre SPA. Remarquez que notre Single Page Application a un comportement de collection de page Web... car on joue avec l API history en lui faisant croire qu il y  a eu des appels http à d autres pages.</p>' },
+                '/produits': { title: 'Produits', html: '<h1>📦 Nos Produits</h1><p>Découvrez notre catalogue incroyable.</p>' },
+                '/contact': { title: 'Contact', html: '<h1>📧 Contact</h1><p>Formulaire de contact en cours de chargement...</p>' }
+            },
+
+            init() {
+                // Observer : On écoute les changements d'historique (boutons préc/suiv)
+                window.addEventListener('popstate', (e) => {
+                    const path = e.state?.path || '/';
+                    this.render(path, false); // false car on ne veut pas pushState à nouveau
+                });
+
+                // Délégation d'événements : Un seul écouteur pour tous les liens
+                document.getElementById('main-nav').addEventListener('click', (e) => {
+                    if (e.target.matches('[data-link]')) { // Attribute selector passed to matches method
+                        e.preventDefault();
+                        this.navigateTo(e.target.getAttribute('href'));
+                    }
+                });
+
+                // Logique de démarrage : URL actuelle > Storage > Racine
+                const savedPath = StorageManager.getPath();
+                const currentPath = window.location.pathname;
+
+                if (currentPath === '/' && savedPath && savedPath !== '/') {
+                    this.navigateTo(savedPath);
+                } else {
+                    this.render(currentPath);
+                }
+            },
+
+            navigateTo(path) {
+                // API History : Mise à jour de l'URL sans rechargement
+                window.history.pushState({ path }, "", path);
+                this.render(path);
+            },
+
+            render(path, shouldPersist = true) {
+                const route = this.routes[path] || { title: '404', html: '<h1>404</h1><p>Page introuvable.</p>' };
+                
+                // Mise à jour du DOM
+                document.getElementById('app').innerHTML = route.html;
+                document.title = `Ma SPA - ${route.title}`;
+
+                // Persistance
+                if (shouldPersist) {
+                    StorageManager.savePath(path);
+                }
+            }
+        };
+
+        // Lancement de l'application
+        Router.init();
+    </script>
+</body>
+</html>
